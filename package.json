@@ -12,12 +12,10 @@
     "test": "npm run lint",
     "lint": "xo",
     "dev": "poi",
-    "build": "poi build",
     "deploy": "surge -p dist -d codepan.net",
-    "predeploy": "npm run build && cp dist/index.html dist/200.html",
+    "predeploy": "poi build && cp dist/index.html dist/200.html",
     "report": "poi build --bundle-report",
-    "heroku-postbuild": "yarn predeploy",
-    "start": "http-server dist"
+    "start": "http-server dist -p$PORT"
   },
   "xo": {
     "parser": "babel-eslint",
