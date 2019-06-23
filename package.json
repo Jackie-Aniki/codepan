@@ -15,7 +15,9 @@
     "build": "poi build",
     "deploy": "surge -p dist -d codepan.net",
     "predeploy": "npm run build && cp dist/index.html dist/200.html",
-    "report": "poi build --bundle-report"
+    "report": "poi build --bundle-report",
+    "heroku-postbuild": "yarn predeploy",
+    "start": "http-server dist"
   },
   "xo": {
     "parser": "babel-eslint",
