@@ -1,13 +1,13 @@
 <template>
   <div id="app">
-    <router-view />
+    <router-view/>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'app'
-  }
+export default {
+  name: 'app'
+}
 </script>
 
 <style src="nprogress/nprogress.css"></style>
@@ -15,118 +15,188 @@
 <style src="v-tippy/dist/tippy.css"></style>
 <style src="notie/dist/notie.min.css"></style>
 
-
 <style lang="stylus">
-html, body, #app, .page
-  height: 100%
+html, body, #app, .page {
+  height: 100%;
+}
 
-body
-  font-family: Tahoma, Verdana, Arial, sans-serif !important
-  background-color: #f9f9f9
-  margin: 0
-  font-size: 14px
+body {
+  background-color: #f9f9f9;
+  margin: 0;
+  font-size: 14px;
+  font-family: Arial;
+}
 
-*
-  box-sizing: border-box
+* {
+  box-sizing: border-box;
+}
 
-.el-checkbox__label
-.el-badge
-  font-size: 1em !important
+pre {
+  padding: 16px;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  background-color: #f6f8fa;
+  border-radius: 3px;
+}
 
-.el-button
-.el-checkbox
-  box-shadow: 0 0 1px rgba(0,0,0,0.15) inset
-  font-family: Tahoma, Verdana, Arial, sans-serif !important
-  font-size: 14px !important
-  border-radius: 0 !important
-  border: none !important
-  line-height: 40px
-  padding: 10px !important
-  height: 40px !important
-  margin: 0 !important
+pre > code {
+  padding: 0;
+  margin: 0;
+  font-size: 100%;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
 
-  i + span:not(:empty)
-    margin-left: 5px !important
+.el-dropdown-link {
+  cursor: pointer;
+  user-select: none;
+}
 
-.home-header
-  i[class*=" el-icon-"]
-  i[class^="el-icon-"]
-    font-size: 1.5em !important
-    vertical-align: middle
-    margin-top: -1px 
-    margin-bottom: 1px
+#nprogress {
+  z-index: 9999;
+  position: relative;
+}
 
-.el-checkbox__inner
-  width: 15px !important
-  height: 15px !important
+.el-dropdown-menu {
+  .fake-anchor {
+    color: #333;
+    text-decoration: none;
+    align-items: center;
+    display: flex;
+    width: 100%;
 
-.el-checkbox__inner::after
-  height: 8px !important
-  width: 4px !important
+    svg {
+      margin-right: 10px;
+      width: 16px;
+      height: @width;
+      color: #666;
+    }
+  }
+}
 
-pre
-  padding: 16px
-  overflow: auto
-  font-size: 85%
-  line-height: 1.45
-  background-color: #f6f8fa
-  border-radius: 3px
+.el-badge {
+  z-index: 1000;
+}
 
-pre > code
-  padding: 0
-  margin: 0
-  font-size: 100%
-  word-break: normal
-  white-space: pre
-  background: transparent
-  border: 0
+.notie-container {
+  z-index: 9999;
+}
 
-.el-dropdown-link
-  cursor: pointer
-  user-select: none
+#HW_frame_cont.HW_visible {
+  z-index: 9999;
+}
 
-#nprogress
-  z-index: 9999
-  position: relative
+.update-notifier {
+  .el-notification__content {
+    text-align: left;
+  }
+}
 
-.el-dropdown-menu
-  .fake-anchor
-    color: #333
-    text-decoration: none
-    align-items: center
-    display: flex
-    width: 100%
-    svg
-      margin-right: 10px
-      width: 16px
-      height: @width
-      color: #666
+.notie-overlay {
+  z-index: 9900;
+}
 
-.el-badge
-  z-index: 1000
+header, .run-buttons {
+  display: flex;
+  flex-wrap: wrap;
 
-.notie-container
-  z-index: 9999
+  &>* {
+    flex-grow: 1;
+  }
+}
 
-#HW_frame_cont.HW_visible
-  z-index: 9999
+header {
+  .el-button, .el-checkbox {
+    font-variant: small-caps;
+    color: #409EFF !important;
+    background: none !important;
+    height: 50px !important;
+    vertical-align: top;
+    margin: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    padding: 12px 16px !important;
 
-.update-notifier
-  .el-notification__content
-    text-align: left
+    span {
+      vertical-align: middle;
+    }
 
-.notie-overlay
-  z-index: 9900
+    .el-checkbox__label {
+      line-height: 26px !important;
+    }
+  }
 
-@media screen and (max-width: 768px)
-  .home-header-block
-    .el-button
-      span
-        display: none !important
+  .el-checkbox:hover, .el-button:hover {
+    color: black !important;
+  }
 
-  .el-message-box
-    max-width: 100%
+  .el-checkbox:focus, .el-button:focus, .el-checkbox:active, .el-button:active {
+    background: lightblue !important;
+    color: white !important;
+  }
 
-  .el-dropdown-menu
-    z-index: 9999
+  span.el-checkbox__inner, i[class^='el-icon'] {
+    transform: scale(1.5);
+    margin: -1px 5px 1px 0;
+    vertical-align: middle;
+  }
+
+  [class*=el-icon-] {
+    margin: 5px !important;
+  }
+
+  [class*=el-icon-]+* {
+    display: inline-block;
+  }
+}
+
+.pan-head {
+  padding: 10px;
+  height: 36px;
+  font-size: 14px;
+}
+
+.pan-head svg {
+  top: 6px;
+  right: 8px;
+  cursor: pointer;
+  position: absolute;
+  transform: scale(0.5);
+}
+
+.CodeMirror {
+  height: calc(100% - 36px) !important;
+}
+
+.CodeMirror-lines {
+  padding: 0 !important;
+}
+
+.console-pan .pan-head button {
+  vertical-align: top;
+  margin-top: -2px;
+  float: right;
+}
+
+.compiled-code-dialog {
+  width: calc(100% - 20px) !important;
+  max-width: 800px !important;
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 12px;
+  }
+
+  .el-checkbox .el-checkbox__label, .el-button span {
+    display: none;
+  }
+
+  .el-checkbox__inner {
+    margin: 5px !important;
+  }
+}
 </style>
