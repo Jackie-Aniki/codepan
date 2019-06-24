@@ -15,7 +15,8 @@
     "deploy": "surge -p dist -d codepan.net",
     "predeploy": "poi build && cp dist/index.html dist/200.html",
     "report": "poi build --bundle-report",
-    "start": "http-server dist -p$PORT"
+    "start": "http-server dist -p$PORT",
+    "heroku-deploy": "yarn poi build --prod && git add dist -f && git commit -m dist && git push heroku HEAD:master && git reset HEAD~1"
   },
   "xo": {
     "parser": "babel-eslint",
