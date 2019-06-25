@@ -1,6 +1,7 @@
+const { execSync } = require('child_process')
 const nodeModules = require('webpack-node-modules')
-const repoLatestCommit = require('repo-latest-commit')
 const pkg = require('./package')
+const LATEST_COMMIT = execSync('git rev-parse HEAD', { encoding: 'utf8' }).slice(0, 7)
 
 const cdns = {
   BABEL_CDN:
@@ -33,8 +34,8 @@ module.exports = {
   homepage: '/',
   env: Object.assign(
     {
-      VERSION: `v${pkg.version}-${repoLatestCommit().commit.slice(0, 7)}`,
-      LATEST_COMMIT: repoLatestCommit().commit.slice(0, 7)
+      VERSION: `v${pkg.version}-LATEST_COMMIT}`,
+      LATEST_COMMIT
     },
     cdns
   ),
