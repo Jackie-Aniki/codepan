@@ -71,7 +71,6 @@ module.exports = {
     babelrc: false,
     presets: [require.resolve('babel-preset-poi')],
     plugins: [
-      // require.resolve('@poi/plugin-vue-static'),
       [
         require.resolve('babel-plugin-component'),
         [
