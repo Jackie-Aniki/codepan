@@ -15,21 +15,21 @@
         :class="`console-log-${log.type}`"
         :key="index"
         v-html="log.message"
-        v-for="(log, index) in logs"
-      ></div>
+        v-for="(log, index) in logs">
+      </div>
     </div>
     <pan-resizer pan="console" :enable="enableResizer"/>
   </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
-import { Badge, Button } from 'element-ui'
-import panPosition from '@/utils/pan-position'
-import PanResizer from '@/components/PanResizer.vue'
-import { hasNextPan } from '@/utils'
-import '@/utils/highlight'
-import Event from '@/utils/event'
+  import { mapState, mapActions } from 'vuex'
+  import { Badge, Button } from 'element-ui'
+  import panPosition from '@/utils/pan-position'
+  import PanResizer from '@/components/PanResizer.vue'
+  import { hasNextPan } from '@/utils'
+  import '@/utils/highlight'
+  import Event from '@/utils/event'
 
 export default {
   data() {
@@ -49,20 +49,9 @@ export default {
       handler(val) {
         this.style = panPosition(val, 'console')
       }
-    }
-  },
-  mounted() {
-    Event.$on(`set-console-pan-style`, style => {
-      this.style = {
-        ...this.style,
-        ...style
-      }
-    })
-  },
-  computed: {
-    ...mapState(['logs', 'visiblePans', 'activePan']),
-    enableResizer() {
-      return hasNextPan(this.visiblePans, 'console')
+    },
+    methods: {
+      ...mapActions(['clearLogs', 'setActivePan'])
     },
     isActivePan() {
       return this.activePan === 'console'
