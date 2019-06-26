@@ -70,7 +70,7 @@ export default ({ name, editor, components } = {}) => {
       })
       Event.$on("refresh-editor", () => {
         if (!this[name].code) return
-        this.editor.setValue(this[name].code.default)
+        this.editor.setValue(this[name].code.default || this[name].code)
         this.editor.refresh()
       })
       // Focus the editor
