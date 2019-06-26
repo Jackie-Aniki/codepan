@@ -36,9 +36,11 @@
       <output-pan class="pan" v-show="isVisible('output')"/>
     </div>
 
-    <!-- <div ref="codefund">
+    <!--
+    <div ref="codefund">
       <div class="codefund-placeholder">Loading CodeFund...</div>
-    </div>-->
+    </div>
+    -->
   </div>
 </template>
 

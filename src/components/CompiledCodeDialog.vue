@@ -8,9 +8,7 @@
       <repeat-icon class="svg-icon"></repeat-icon>
       Compiled with {{ transformerName }}
     </h2>
-    <pre>
-        <highlight :mode="highlight">{{ transforming ? 'Compiling...' : transformedCode }}</highlight>
-      </pre>
+    <pre class="CodeMirror cm-s-default CodeMirror-wrap" v-html="transforming ? 'Compiling...' : transformedCode"/>
   </modal>
 </template>
 
@@ -20,7 +18,7 @@ import { mapActions, mapState } from "vuex";
 import { RepeatIcon } from "vue-feather-icons";
 import { getHumanlizedTransformerName } from "@/utils";
 import * as transform from "@/utils/transform";
-import Highlight from "@/components/Highlight";
+import CodeMirror from "@/utils/highlight";
 
 export default {
   name: "compiled-code-dialog",
@@ -35,7 +33,8 @@ export default {
       if (!show) return;
       await this.transform(true);
       try {
-        this.transformedCode = await transform[this.type](this.code);
+        const code = await transform[this.type](this.code);
+        this.transformedCode = CodeMirror.highlight(code, { mode: this.highlight, theme: 'default' });
       } catch (err) {
         const message = `compiler error: ${err.message}`;
         this.addLog({ type: "error", message });
@@ -59,7 +58,6 @@ export default {
   },
   components: {
     Modal,
-    Highlight,
     RepeatIcon
   }
 };
@@ -89,5 +87,9 @@ export default {
   margin-right: 8px;
   width: 16px;
   height: @width;
+}
+
+pre {
+  margin: 0;
 }
 </style>
