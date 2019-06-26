@@ -1,10 +1,11 @@
-export default (pans, pan) => {
+export default (pans = [], pan) => {
   const panWidth = 100 / pans.length
   const pansCount = matchedPans => {
     return pans.filter(p => {
       return matchedPans.indexOf(p) !== -1
     }).length
   }
+
   const rightOffset = leftCount => pans.length - 1 - leftCount
   const suffix = count => `${count * panWidth}%`
 

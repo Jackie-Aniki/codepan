@@ -36,6 +36,7 @@ CodeMirror.highlight = function (string, options = {}) {
       const className = 'cm-' + style.replace(/ +/g, 'cm-')
       content = `<span class="${className}">${content}</span>`
     }
+
     html += content
   })
 

@@ -6,8 +6,8 @@
 
 <script>
 export default {
-  name: 'app'
-}
+  name: "app"
+};
 </script>
 
 <style src="nprogress/nprogress.css"></style>
@@ -193,6 +193,14 @@ header {
   background: inherit !important;
 }
 
+.CodeMirror-wrap {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
 .CodeMirror-gutters {
   border: 0 !important;
   background: inherit !important;
@@ -299,6 +307,11 @@ span:empty {
         display: none !important;
       }
     }
+  }
+
+  *:not(input):not(textarea) {
+    -webkit-user-select: none; /* disable selection/Copy of UIWebView */
+    -webkit-touch-callout: none; /* disable the IOS popup when long-press on a link */
   }
 }
 </style>

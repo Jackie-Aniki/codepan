@@ -22,7 +22,7 @@ import createIframe from '@/utils/iframe'
 import Event from '@/utils/event'
 import panPosition from '@/utils/pan-position'
 import getScripts from '@/utils/get-scripts'
-import proxyConsole from '!raw-loader!babel-loader?presets[]=babili&-babelrc!buble-loader!@/utils/proxy-console'
+import proxyConsole from '!babel-loader?presets[]=@babel/env!raw-loader!buble-loader!@/utils/proxy-console'
 
 const sandboxAttributes = [
   'allow-modals',

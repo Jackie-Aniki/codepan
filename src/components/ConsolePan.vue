@@ -15,57 +15,57 @@
         :class="`console-log-${log.type}`"
         :key="index"
         v-html="log.message"
-        v-for="(log, index) in logs">
-      </div>
+        v-for="(log, index) in logs"
+      ></div>
     </div>
     <pan-resizer pan="console" :enable="enableResizer"/>
   </div>
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex'
-  import { Badge, Button } from 'element-ui'
-  import panPosition from '@/utils/pan-position'
-  import PanResizer from '@/components/PanResizer.vue'
-  import { hasNextPan } from '@/utils'
-  import '@/utils/highlight'
-  import Event from '@/utils/event'
+import { mapActions, mapState } from "vuex";
+import { Badge, Button } from "element-ui";
+import panPosition from "@/utils/pan-position";
+import PanResizer from "@/components/PanResizer.vue";
+import { hasNextPan } from "@/utils";
+import Event from "@/utils/event";
 
 export default {
   data() {
     return {
-      style: {}
-    }
+      style: {},
+      enableResizer: true
+    };
   },
   watch: {
     logs() {
-      const { console } = this.$refs
+      const { console } = this.$refs;
       this.$nextTick(() => {
-        console.scrollTop = console.scrollHeight
-      })
+        console.scrollTop = console.scrollHeight;
+      });
     },
     visiblePans: {
       immediate: true,
       handler(val) {
-        this.style = panPosition(val, 'console')
+        this.style = panPosition(val, "console");
       }
     },
-    methods: {
-      ...mapActions(['clearLogs', 'setActivePan'])
-    },
+  },
+  computed: {
+    ...mapState(["activePan", "logs"]),
     isActivePan() {
-      return this.activePan === 'console'
+      return this.activePan === "console";
     }
   },
   methods: {
-    ...mapActions(['clearLogs', 'setActivePan'])
+    ...mapActions(["clearLogs", "setActivePan"])
   },
   components: {
-    'el-badge': Badge,
-    'el-button': Button,
-    'pan-resizer': PanResizer
+    "el-badge": Badge,
+    "el-button": Button,
+    "pan-resizer": PanResizer
   }
-}
+};
 </script>
 
 <style lang="stylus" scoped>
@@ -75,8 +75,7 @@ export default {
 }
 
 .console-log {
-  white-space: pre;
-  font-size: 13px;
+  white-space: pre-wrap;
   padding: 10px;
   border-bottom: 1px solid #efefef;
 }

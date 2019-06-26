@@ -1,7 +1,10 @@
 const { execSync } = require('child_process')
 const nodeModules = require('webpack-node-modules')
 const pkg = require('./package')
-const LATEST_COMMIT = execSync('git rev-parse HEAD', { encoding: 'utf8' }).slice(0, 7)
+
+const LATEST_COMMIT = execSync('if [ -d ".git" ]; then git rev-parse HEAD; else echo unknown; fi', {
+  encoding: 'utf8'
+}).slice(0, 7)
 
 const cdns = {
   BABEL_CDN:
@@ -16,34 +19,25 @@ const cdns = {
 }
 
 module.exports = {
-  extendWebpack(config) {
-    config.module.set('noParse', /babel-preset-vue/)
-
+  entry: './src/index.js',
+  output: {
+    sourceMap: false,
+    publicUrl: '/'
+  },
+  chainWebpack(config) {
+    config.module.set('noParse', /babel-preset-poi/)
     config.module.rule('js').include.add(nodeModules())
-
     config.node.set('fs', 'empty')
-
     config.externals({
       electron: 'commonjs electron'
     })
   },
-  production: {
-    sourceMap: false
-  },
-  hash: false,
-  homepage: '/',
-  env: Object.assign(
+  plugins: [
+    { resolve: 'poi-preset-bundle-report' },
+    { resolve: 'poi-preset-babel-minify', options: { removeUndefined: false } },
     {
-      VERSION: `v${pkg.version}-LATEST_COMMIT}`,
-      LATEST_COMMIT
-    },
-    cdns
-  ),
-  presets: [
-    require('poi-preset-bundle-report')(),
-    require('poi-preset-babel-minify')(),
-    require('poi-preset-offline')({
-      pluginOptions: {
+      resolve: 'poi-preset-offline',
+      options: {
         version: '[hash]',
         autoUpdate: true,
         safeToUseOptionalCaches: true,
@@ -66,21 +60,13 @@ module.exports = {
           }, [])
         )
       }
-    })
+    }
   ],
-  babel: {
-    babelrc: false,
-    presets: [require.resolve('babel-preset-poi')],
-    plugins: [
-      [
-        require.resolve('babel-plugin-component'),
-        [
-          {
-            libraryName: 'element-ui',
-            styleLibraryName: 'theme-chalk'
-          }
-        ]
-      ]
-    ]
-  }
+  envs: Object.assign(
+    {
+      VERSION: `v${pkg.version}-LATEST_COMMIT}`,
+      LATEST_COMMIT
+    },
+    cdns
+  )
 }

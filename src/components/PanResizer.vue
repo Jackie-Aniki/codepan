@@ -1,5 +1,5 @@
 <template>
-  <div class="pan-resizer" :class="{ enable }" ref="resizer" @mousedown="handleMouseDown"></div>
+  <div class="pan-resizer" :class="{ enable }" ref="resizer" @pointerdown="handleMouseDown" @contextmenu="$event.preventDefault()"></div>
 </template>
 
 <script>
@@ -72,11 +72,11 @@ export default {
       Event.$emit('refresh-editor', { run: false })
     },
     handleMouseMove(e) {
-      e.preventDefault()
       if (this.resizing) {
+        e.preventDefault()
         const landscape = (window.innerWidth > window.innerHeight)
         const correction = landscape ? 0 : 64
-        const newNextPanTop = (e.clientY / (window.innerHeight - correction)) * 100
+        const newNextPanTop = ((e.clientY - correction) / (window.innerHeight - correction)) * 100
         if (
           newNextPanTop - this.originalCurrentPanTop > this.panMoveTolerance &&
           100 - newNextPanTop - this.originalNextPanBottom > this.panMoveTolerance

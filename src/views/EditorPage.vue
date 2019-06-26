@@ -100,16 +100,13 @@ export default {
       isReadOnly: 'readonly' in this.$route.query
     }
   },
-  computed: {
-    ...mapState(['visiblePans', 'editorStatus', 'js', 'css', 'html'])
-  },
+  computed: mapState(['visiblePans', 'editorStatus', 'js', 'css', 'html']),
   beforeRouteEnter(to, from, next) {
     next(async vm => {
       await handleRouteChange(to, vm)
     })
   },
   async beforeRouteUpdate(to, from, next) {
-    console.log('route updated to', to)
     await handleRouteChange(to, this)
     next()
   },
@@ -213,12 +210,16 @@ export default {
   height: calc(100% - 64px);
   width: 100%;
   display: flex;
+  flex-direction: column;
   position: relative;
 }
 
 .pan {
+  flex: 1;
+  position: relative;
   background-color: #f9f9f9;
-  position: absolute;
+  top: 0 !important;
+  bottom: 0 !important;
   left: 0;
   right: 0;
   overflow: auto;

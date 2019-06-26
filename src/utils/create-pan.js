@@ -51,8 +51,8 @@ export default ({ name, editor, components } = {}) => {
         }
       }
     },
-    mounted() {
-      this.editor = createEditor(this.$refs.editor, {
+    async mounted() {
+      this.editor = await createEditor(this.$refs.editor, {
         ...editor,
         readOnly: 'readonly' in this.$route.query
       })
@@ -66,7 +66,7 @@ export default ({ name, editor, components } = {}) => {
         }
       })
       Event.$on('refresh-editor', () => {
-        this.editor.setValue(this[name].code)
+        this.editor.setValue(this[name].code.default)
         this.editor.refresh()
       })
       // Focus the editor
