@@ -25,7 +25,6 @@
       </div>
     </div>
     <textarea ref="editor">{{ js.code }}</textarea>
-    <pan-resizer pan="js" :enable="enableResizer" />
   </div>
 </template>
 

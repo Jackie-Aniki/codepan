@@ -19,7 +19,6 @@
       <compiled-code-switcher type="html" v-if="html.code"></compiled-code-switcher>
     </div>
     <textarea ref="editor">{{ html.code }}</textarea>
-    <pan-resizer pan="html" :enable="enableResizer" />
   </div>
 </template>
 

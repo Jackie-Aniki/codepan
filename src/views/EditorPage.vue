@@ -36,60 +36,60 @@
       <output-pan class="pan" v-show="isVisible('output')"/>
     </div>
 
-    <div ref="codefund">
+    <!-- <div ref="codefund">
       <div class="codefund-placeholder">Loading CodeFund...</div>
-    </div>
+    </div>-->
   </div>
 </template>
 
 <script>
-import progress from 'nprogress'
-import { mapState, mapActions } from 'vuex'
-import notie from 'notie'
-import isElectron from 'is-electron'
-import axios from 'axios'
-import { inIframe } from '@/utils'
-import Event from '@/utils/event'
-import HomeHeader from '@/components/HomeHeader.vue'
-import HTMLPan from '@/components/HTMLPan.vue'
-import JSPan from '@/components/JSPan.vue'
-import OutputPan from '@/components/OutputPan.vue'
-import ConsolePan from '@/components/ConsolePan.vue'
-import CSSPan from '@/components/CSSPan.vue'
-import CompiledCodeDialog from '@/components/CompiledCodeDialog.vue'
+import progress from "nprogress";
+import { mapState, mapActions } from "vuex";
+import notie from "notie";
+import isElectron from "is-electron";
+import axios from "axios";
+import { inIframe } from "@/utils";
+import Event from "@/utils/event";
+import HomeHeader from "@/components/HomeHeader.vue";
+import HTMLPan from "@/components/HTMLPan.vue";
+import JSPan from "@/components/JSPan.vue";
+import OutputPan from "@/components/OutputPan.vue";
+import ConsolePan from "@/components/ConsolePan.vue";
+import CSSPan from "@/components/CSSPan.vue";
+import CompiledCodeDialog from "@/components/CompiledCodeDialog.vue";
 
 async function handleRouteChange(to, vm) {
-  let boilerplate
-  let gist
+  let boilerplate;
+  let gist;
 
-  const { name } = to
+  const { name } = to;
 
-  if (name === 'home') {
-    boilerplate = to.query.boilerplate
-    gist = to.query.gist
-  } else if (name === 'boilerplate') {
-    boilerplate = to.params.boilerplate
-  } else if (name === 'gist') {
-    gist = to.params.gist
+  if (name === "home") {
+    boilerplate = to.query.boilerplate;
+    gist = to.query.gist;
+  } else if (name === "boilerplate") {
+    boilerplate = to.params.boilerplate;
+  } else if (name === "gist") {
+    gist = to.params.gist;
   }
 
   if (boilerplate) {
-    await vm.setBoilerplate(boilerplate)
-    Event.$emit('refresh-editor')
-    Event.$emit('run')
+    await vm.setBoilerplate(boilerplate);
+    Event.$emit("refresh-editor");
+    Event.$emit("run");
   } else if (gist) {
-    await vm.setGist(gist)
-    Event.$emit('refresh-editor')
-    Event.$emit('run')
+    await vm.setGist(gist);
+    Event.$emit("refresh-editor");
+    Event.$emit("run");
   }
 
-  await vm.setAutoRun(true)
+  await vm.setAutoRun(true);
 
-  progress.done()
+  progress.done();
 }
 
 export default {
-  name: 'editor-page',
+  name: "editor-page",
   data() {
     return {
       showCompiledCode: {
@@ -97,26 +97,26 @@ export default {
         css: false,
         html: false
       },
-      isReadOnly: 'readonly' in this.$route.query
-    }
+      isReadOnly: "readonly" in this.$route.query
+    };
   },
-  computed: mapState(['visiblePans', 'editorStatus', 'js', 'css', 'html']),
+  computed: mapState(["visiblePans", "editorStatus", "js", "css", "html"]),
   beforeRouteEnter(to, from, next) {
     next(async vm => {
-      await handleRouteChange(to, vm)
-    })
+      await handleRouteChange(to, vm);
+    });
   },
   async beforeRouteUpdate(to, from, next) {
-    await handleRouteChange(to, this)
-    next()
+    await handleRouteChange(to, this);
+    next();
   },
   watch: {
-    '$route.query.show': {
+    "$route.query.show": {
       handler(next, prev) {
         if (!next && prev) {
-          this.showPans(['js', 'output'])
+          this.showPans(["js", "output"]);
         } else if (next !== prev) {
-          this.showPans(next.split(','))
+          this.showPans(next.split(","));
         }
       },
       immediate: true
@@ -125,17 +125,17 @@ export default {
   mounted() {
     // Tell the parent window we're ready!
     if (inIframe) {
-      window.parent.postMessage({ type: 'codepan-ready' }, '*')
+      window.parent.postMessage({ type: "codepan-ready" }, "*");
     }
 
-    window.addEventListener('storage', this.handleStorageChanged)
+    window.addEventListener("storage", this.handleStorageChanged);
 
-    window.addEventListener('beforeunload', e => {
-      if (!inIframe && !isElectron() && this.editorStatus !== 'saved') {
-        e.returnValue = false
-        return false
+    window.addEventListener("beforeunload", e => {
+      if (!inIframe && !isElectron() && this.editorStatus !== "saved") {
+        e.returnValue = false;
+        return false;
       }
-    })
+    });
 
     // Since in prevous versions we didn't fetch userMeta after login
     // We need to force user to re-login in order to get that data
@@ -143,61 +143,64 @@ export default {
       this.$store.state.githubToken &&
       Object.keys(this.$store.state.userMeta).length === 0
     ) {
-      this.$store.dispatch('setGitHubToken', null).then(() => {
+      this.$store.dispatch("setGitHubToken", null).then(() => {
         notie.alert({
-          type: 'warning',
+          type: "warning",
           text: `You need to login again to use the new version!`
-        })
-      })
+        });
+      });
     }
 
-    Event.$on('show-compiled-code', type => {
-      this.showCompiledCode[type] = true
-    })
+    Event.$on("show-compiled-code", type => {
+      this.showCompiledCode[type] = true;
+    });
 
-    this.getCodeFund()
+    this.getCodeFund();
   },
   methods: {
-    ...mapActions(['setBoilerplate', 'setGist', 'showPans', 'setAutoRun']),
+    ...mapActions(["setBoilerplate", "setGist", "showPans", "setAutoRun"]),
     isVisible(pan) {
-      return this.visiblePans.indexOf(pan) !== -1
+      return this.visiblePans.indexOf(pan) !== -1;
     },
     handleStorageChanged(e) {
-      if (e.key === 'codepan:gh-token' && e.newValue) {
-        this.$store.dispatch('setGitHubToken', e.newValue)
+      if (e.key === "codepan:gh-token" && e.newValue) {
+        this.$store.dispatch("setGitHubToken", e.newValue);
         if (inIframe) {
           notie.confirm({
-            text: 'Success, reload this iframe?',
+            text: "Success, reload this iframe?",
             submitCallback() {
-              window.location.reload()
+              window.location.reload();
             }
-          })
+          });
         } else {
           notie.alert({
-            type: 'success',
-            text: 'Successfully logged in with GitHub!'
-          })
+            type: "success",
+            text: "Successfully logged in with GitHub!"
+          });
         }
       }
     },
     async getCodeFund() {
-      const res = await axios.get('https://codefund.io/properties/241/funder.html')
-      this.$refs.codefund.innerHTML = res.data
+      if (!this.$refs.codefund) return;
+      const res = await axios.get(
+        "https://codefund.io/properties/241/funder.html"
+      );
+      this.$refs.codefund.innerHTML = res.data;
     }
   },
   beforeDestroy() {
-    window.removeEventListener('storage', this.handleStorageChanged)
+    window.removeEventListener("storage", this.handleStorageChanged);
   },
   components: {
-    'html-pan': HTMLPan,
-    'js-pan': JSPan,
-    'output-pan': OutputPan,
-    'console-pan': ConsolePan,
-    'css-pan': CSSPan,
-    'home-header': HomeHeader,
+    "html-pan": HTMLPan,
+    "js-pan": JSPan,
+    "output-pan": OutputPan,
+    "console-pan": ConsolePan,
+    "css-pan": CSSPan,
+    "home-header": HomeHeader,
     CompiledCodeDialog
   }
-}
+};
 </script>
 
 <style src="codemirror/lib/codemirror.css">
@@ -212,17 +215,22 @@ export default {
   display: flex;
   flex-direction: column;
   position: relative;
+
+  &>*:not(:last-child) {
+    border-bottom: 1px dashed lightblue;
+  }
 }
 
 .pan {
-  flex: 1;
-  position: relative;
+  width: 100%;
+  position: static;
+  resize: vertical;
   background-color: #f9f9f9;
-  top: 0 !important;
-  bottom: 0 !important;
-  left: 0;
-  right: 0;
   overflow: auto;
+
+  &:last-child {
+    flex-grow: 1;
+  }
 
   &.active-pan {
     background-color: white;

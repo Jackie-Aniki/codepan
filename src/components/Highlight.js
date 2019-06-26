@@ -1,11 +1,16 @@
-import highlight from 'cm-highlight'
+// import highlight from "cm-highlight/dist/cm-highlight.common"
 
 export default {
-  name: 'highlight',
+  name: "highlight",
   functional: true,
-  render(h, ctx) {
-    const { theme = 'default', mode = 'javascript' } = ctx.props
-    const code = highlight(ctx.props.code || ctx.children[0].text, { mode })
-    return <pre style="margin:0" class={`cm-s-${theme}`}><code domProps-innerHTML={code}></code></pre>
+  render(createElement, context) {
+    const text = context.props.code || context.children[0].text
+    // const code = highlight(
+    //   text,
+    //   { mode: context.props.mode }
+    // )
+    const element = createElement("div")
+    element.text = text
+    return element
   }
 }

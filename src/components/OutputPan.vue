@@ -1,10 +1,5 @@
 <template>
-  <div
-    class="output-pan"
-    :class="{ 'active-pan': isActivePan }"
-    @click="setActivePan('output')"
-    :style="style"
-  >
+  <div class="output-pan" :class="{ 'active-pan': isActivePan }" @click="setActivePan('output')">
     <div class="pan-head">Output</div>
     <div class="output-iframe" id="output-iframe">
       <div id="output-iframe-holder"></div>
@@ -13,149 +8,129 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from 'vuex'
-import { getHumanlizedTransformerName } from '@/utils'
-import axios from 'axios'
-import notie from 'notie'
-import * as transform from '@/utils/transform'
-import createIframe from '@/utils/iframe'
-import Event from '@/utils/event'
-import panPosition from '@/utils/pan-position'
-import getScripts from '@/utils/get-scripts'
-import proxyConsole from '!babel-loader?presets[]=@babel/env!raw-loader!buble-loader!@/utils/proxy-console'
+import { mapState, mapActions, mapGetters } from "vuex";
+import { getHumanlizedTransformerName } from "@/utils";
+import axios from "axios";
+import notie from "notie";
+import * as transform from "@/utils/transform";
+import createIframe from "@/utils/iframe";
+import Event from "@/utils/event";
+import getScripts from "@/utils/get-scripts";
+import proxyConsole from "!babel-loader?presets[]=@babel/env!raw-loader!buble-loader!@/utils/proxy-console";
 
 const sandboxAttributes = [
-  'allow-modals',
-  'allow-forms',
-  'allow-pointer-lock',
-  'allow-popups',
-  'allow-same-origin',
-  'allow-scripts'
-]
+  "allow-modals",
+  "allow-forms",
+  "allow-pointer-lock",
+  "allow-popups",
+  "allow-same-origin",
+  "allow-scripts"
+];
 
-const replaceQuote = str => str.replace(/__QUOTE_LEFT__/g, '<')
+const replaceQuote = str => str.replace(/__QUOTE_LEFT__/g, "<");
 
-const createElement = tag => (content = '', attrs = {}) => {
+const createElement = tag => (content = "", attrs = {}) => {
   attrs = Object.keys(attrs)
     .map(key => {
-      return `${key}="${attrs[key]}"`
+      return `${key}="${attrs[key]}"`;
     })
-    .join(' ')
+    .join(" ");
   return replaceQuote(
     `__QUOTE_LEFT__${tag} ${attrs}>${content}__QUOTE_LEFT__/${tag}>`
-  )
-}
+  );
+};
 
 const makeGist = (data, { showPans, activePan }) => {
-  const files = {}
+  const files = {};
 
   const manifest = {
     ...data,
     showPans,
     activePan
-  }
+  };
 
-  files['codepan.json'] = {
+  files["codepan.json"] = {
     content: JSON.stringify(manifest)
-  }
+  };
 
-  return files
-}
+  return files;
+};
 
 export default {
-  name: 'output-pan',
-  data() {
-    return {
-      style: {}
-    }
-  },
-  watch: {
-    visiblePans: {
-      immediate: true,
-      handler(val) {
-        this.style = panPosition(val, 'output')
-      }
-    }
-  },
+  name: "output-pan",
   computed: {
     ...mapState([
-      'js',
-      'css',
-      'html',
-      'visiblePans',
-      'activePan',
-      'githubToken',
-      'iframeStatus'
+      "js",
+      "css",
+      "html",
+      "visiblePans",
+      "activePan",
+      "githubToken",
+      "iframeStatus"
     ]),
-    ...mapGetters(['isLoggedIn', 'canUpdateGist']),
+    ...mapGetters(["isLoggedIn", "canUpdateGist"]),
     isActivePan() {
-      return this.activePan === 'output'
+      return this.activePan === "output";
     }
   },
   mounted() {
     this.iframe = createIframe({
-      el: document.getElementById('output-iframe-holder'),
+      el: document.getElementById("output-iframe-holder"),
       sandboxAttributes
-    })
+    });
 
-    window.addEventListener('message', this.listenIframe)
-    Event.$on('run', () => this.run())
-    Event.$on(`set-output-pan-style`, style => {
-      this.style = {
-        ...this.style,
-        ...style
-      }
-    })
-    Event.$on('save-gist', saveNew => {
-      this.saveGist({ token: this.githubToken, saveNew })
-    })
+    window.addEventListener("message", this.listenIframe);
+    Event.$on("run", () => this.run());
+    Event.$on("save-gist", saveNew => {
+      this.saveGist({ token: this.githubToken, saveNew });
+    });
   },
   beforeDestroy() {
-    window.removeEventListener('message', this.listenIframe)
+    window.removeEventListener("message", this.listenIframe);
   },
   methods: {
     ...mapActions([
-      'addLog',
-      'clearLogs',
-      'setActivePan',
-      'setBoilerplate',
-      'editorSaved',
-      'editorSaving',
-      'editorSavingError',
-      'setIframeStatus',
-      'transform'
+      "addLog",
+      "clearLogs",
+      "setActivePan",
+      "setBoilerplate",
+      "editorSaved",
+      "editorSaving",
+      "editorSavingError",
+      "setIframeStatus",
+      "transform"
     ]),
     getHumanlizedTransformerName,
 
     async listenIframe({ data = {} }) {
-      if (data.type === 'iframe-error') {
-        this.addLog({ type: 'error', message: data.message.trim() })
-        this.setIframeStatus('error')
-      } else if (data.type === 'codepan-console') {
-        if (data.method === 'clear') {
-          this.clearLogs()
+      if (data.type === "iframe-error") {
+        this.addLog({ type: "error", message: data.message.trim() });
+        this.setIframeStatus("error");
+      } else if (data.type === "codepan-console") {
+        if (data.method === "clear") {
+          this.clearLogs();
         } else {
-          this.addLog({ type: data.method, message: data.args.join('') })
+          this.addLog({ type: data.method, message: data.args.join("") });
         }
-      } else if (data.type === 'codepan-make-output-active') {
-        this.setActivePan('output')
-      } else if (data.type === 'codepan-set-boilerplate' && data.boilerplate) {
-        await this.setBoilerplate(JSON.parse(data.boilerplate))
-        Event.$emit('refresh-editor')
-      } else if (data.type === 'iframe-success') {
-        this.setIframeStatus('success')
+      } else if (data.type === "codepan-make-output-active") {
+        this.setActivePan("output");
+      } else if (data.type === "codepan-set-boilerplate" && data.boilerplate) {
+        await this.setBoilerplate(JSON.parse(data.boilerplate));
+        Event.$emit("refresh-editor");
+      } else if (data.type === "iframe-success") {
+        this.setIframeStatus("success");
       }
     },
 
     async run() {
-      this.setIframeStatus('loading')
-      let js
+      this.setIframeStatus("loading");
+      let js;
       // We may add preprocessors supports for html/css in the future
-      let html
-      let css
-      const scripts = []
+      let html;
+      let css;
+      const scripts = [];
 
-      await this.transform(true)
+      await this.transform(true);
 
       try {
         await Promise.all([
@@ -163,17 +138,17 @@ export default {
             .js(this.js)
             .then(code => getScripts(code, scripts))
             .then(code => {
-              js = code
+              js = code;
             }),
           transform.html(this.html).then(code => {
-            html = code
+            html = code;
           }),
           transform.css(this.css).then(code => {
-            css = code
+            css = code;
           })
-        ])
+        ]);
 
-        js = js.replace(/<\/script>/, '<\\/script>')
+        js = js.replace(/<\/script>/, "<\\/script>");
         js = `
           try {
             ${js}
@@ -186,52 +161,52 @@ export default {
               '*'
             )
           }
-        `
+        `;
         js = `
           if (window.Vue) {
             window.Vue.config.productionTip = false;
           }
-          console.clear();
+          // console.clear();
           document.addEventListener('DOMContentLoaded', __executeCodePan);
           function __executeCodePan(){
             window.parent.postMessage({ type: 'iframe-success' }, '*');
             let script = document.createElement('script');
             script.innerHTML = ${JSON.stringify(js)};
             document.body.appendChild(script);
-          };`
+          };`;
       } catch (err) {
-        this.setIframeStatus('error')
+        this.setIframeStatus("error");
         return this.addLog({
-          type: 'error',
+          type: "error",
           message: err.frame ? `${err.message}\n${err.frame}` : err.stack
-        })
+        });
       }
 
-      await this.transform(false)
+      await this.transform(false);
 
-      const headStyle = createElement('style')(css)
+      const headStyle = createElement("style")(css);
       const codePanRuntime =
-        createElement('script')(`
+        createElement("script")(`
         window.process = window.process || { env: { NODE_ENV: 'development' } }
         `) +
         scripts
           .map(script =>
-            createElement('script')('', {
+            createElement("script")("", {
               src: `https://bundle.run/${script.module}${script.path}?name=${
                 script.name
               }`
             })
           )
-          .join('\n') +
-        createElement('script')(proxyConsole)
-      const head = headStyle + codePanRuntime
+          .join("\n") +
+        createElement("script")(proxyConsole);
+      const head = headStyle + codePanRuntime;
 
-      const body = html + createElement('script')(js)
+      const body = html + createElement("script")(js);
 
       this.iframe.setHTML({
         head,
         body
-      })
+      });
     },
 
     /**
@@ -240,7 +215,7 @@ export default {
      * Otherwise it creates or updates gist
      */
     async saveGist({ token, saveNew } = {}) {
-      this.editorSaving()
+      this.editorSaving();
       try {
         const files = makeGist(
           {
@@ -252,17 +227,17 @@ export default {
             showPans: this.visiblePans,
             activePan: this.activePan
           }
-        )
-        const params = {}
+        );
+        const params = {};
         if (token) {
           // eslint-disable-next-line camelcase
-          params.access_token = token
+          params.access_token = token;
         }
-        const shouldUpdateGist = this.canUpdateGist && !saveNew
+        const shouldUpdateGist = this.canUpdateGist && !saveNew;
         const url = `https://api.github.com/gists${
-          shouldUpdateGist ? `/${this.$route.params.gist}` : ''
-        }`
-        const method = shouldUpdateGist ? 'PATCH' : 'POST'
+          shouldUpdateGist ? `/${this.$route.params.gist}` : ""
+        }`;
+        const method = shouldUpdateGist ? "PATCH" : "POST";
         const { data } = await axios(url, {
           params,
           method,
@@ -270,37 +245,37 @@ export default {
             public: false,
             files
           }
-        })
+        });
 
         if (shouldUpdateGist) {
-          this.editorSaved()
+          this.editorSaved();
         } else {
-          this.$router.push(`/gist/${data.id}`)
+          this.$router.push(`/gist/${data.id}`);
           if (token) {
             // Update gist id in the description of newly created gist
             axios(`https://api.github.com/gists/${data.id}`, {
-              method: 'PATCH',
+              method: "PATCH",
               params,
               data: {
                 description: `Try it online! https://codepan.net/gist/${
                   data.id
                 }`
               }
-            }).catch(err => console.log(err))
+            }).catch(err => console.log(err));
           }
         }
       } catch (err) {
-        this.editorSavingError()
+        this.editorSavingError();
         if (err.response) {
           notie.alert({
-            type: 'error',
+            type: "error",
             text: err.response.data.message
-          })
+          });
         }
       }
     }
   }
-}
+};
 </script>
 
 <style lang="stylus" scoped>
@@ -308,11 +283,13 @@ $statusSize = 12px;
 
 .output-pan {
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .output-iframe {
-  width: 100%;
-  height: calc(100% - 40px);
+  position: relative;
+  flex: 1;
 
   &.disable-mouse-events {
     pointer-events: none;

@@ -1,12 +1,15 @@
-import { mapActions, mapState } from 'vuex'
-import debounce from 'debounce'
-import { Dropdown, DropdownMenu, DropdownItem } from 'element-ui'
-import PanResizer from '@/components/PanResizer.vue'
-import CompiledCodeSwitcher from '@/components/CompiledCodeSwitcher.vue'
-import createEditor from '@/utils/create-editor'
-import Event from '@/utils/event'
-import panPosition from '@/utils/pan-position'
-import { hasNextPan, getHumanlizedTransformerName, getEditorModeByTransfomer } from '@/utils'
+import { mapActions, mapState } from "vuex"
+import debounce from "debounce"
+import { Dropdown, DropdownMenu, DropdownItem } from "element-ui"
+import PanResizer from "@/components/PanResizer.vue"
+import CompiledCodeSwitcher from "@/components/CompiledCodeSwitcher.vue"
+import createEditor from "@/utils/create-editor"
+import Event from "@/utils/event"
+import {
+  hasNextPan,
+  getHumanlizedTransformerName,
+  getEditorModeByTransfomer
+} from "@/utils"
 
 export default ({ name, editor, components } = {}) => {
   return {
@@ -17,7 +20,7 @@ export default ({ name, editor, components } = {}) => {
       }
     },
     computed: {
-      ...mapState([name, 'visiblePans', 'activePan', 'autoRun']),
+      ...mapState([name, "visiblePans", "activePan", "autoRun"]),
       ...mapState({
         isVisible: state => state.visiblePans.indexOf(name) !== -1
       }),
@@ -37,13 +40,13 @@ export default ({ name, editor, components } = {}) => {
       },
       visiblePans: {
         immediate: true,
-        handler(val) {
-          this.style = panPosition(val, name)
+        handler() {
+          this.style.height = `${100 / this.visiblePans.length}%`
         }
       },
       [`${name}.transformer`](val) {
         const mode = getEditorModeByTransfomer(val)
-        this.editor.setOption('mode', mode)
+        this.editor.setOption("mode", mode)
       },
       [`${name}.code`]() {
         if (this.autoRun) {
@@ -54,24 +57,25 @@ export default ({ name, editor, components } = {}) => {
     async mounted() {
       this.editor = await createEditor(this.$refs.editor, {
         ...editor,
-        readOnly: 'readonly' in this.$route.query
+        readOnly: "readonly" in this.$route.query
       })
-      this.editor.on('change', e => {
+      this.editor.on("change", e => {
         this.updateCode({ code: e.getValue(), type: name })
         this.editorChanged()
       })
-      this.editor.on('focus', () => {
+      this.editor.on("focus", () => {
         if (this.activePan !== name && this.visiblePans.indexOf(name) > -1) {
           this.setActivePan(name)
         }
       })
-      Event.$on('refresh-editor', () => {
+      Event.$on("refresh-editor", () => {
+        if (!this[name].code) return
         this.editor.setValue(this[name].code.default)
         this.editor.refresh()
       })
       // Focus the editor
       // This is usually emitted after setting boilerplate or gist
-      Event.$on('focus-editor', active => {
+      Event.$on("focus-editor", active => {
         if (active === name) {
           this.editor.focus()
         }
@@ -84,18 +88,23 @@ export default ({ name, editor, components } = {}) => {
       })
     },
     methods: {
-      ...mapActions(['updateCode', 'updateTransformer', 'setActivePan', 'editorChanged']),
+      ...mapActions([
+        "updateCode",
+        "updateTransformer",
+        "setActivePan",
+        "editorChanged"
+      ]),
       async setTransformer(transformer) {
         await this.updateTransformer({ type: name, transformer })
       },
       debounceRunCode: debounce(() => {
-        Event.$emit('run')
+        Event.$emit("run")
       }, 500)
     },
     components: {
-      'el-dropdown': Dropdown,
-      'el-dropdown-menu': DropdownMenu,
-      'el-dropdown-item': DropdownItem,
+      "el-dropdown": Dropdown,
+      "el-dropdown-menu": DropdownMenu,
+      "el-dropdown-item": DropdownItem,
       PanResizer,
       CompiledCodeSwitcher,
       ...components

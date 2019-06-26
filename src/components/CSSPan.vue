@@ -23,7 +23,6 @@
       </div>
     </div>
     <textarea ref="editor">{{ css.code }}</textarea>
-    <pan-resizer pan="css" :enable="enableResizer" />
   </div>
 </template>
 

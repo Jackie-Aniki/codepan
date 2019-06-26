@@ -1,13 +1,19 @@
 <template>
-  <div class="pan-resizer" :class="{ enable }" ref="resizer" @pointerdown="handleMouseDown" @contextmenu="$event.preventDefault()"></div>
+  <div
+    class="pan-resizer"
+    :class="{ enable }"
+    ref="resizer"
+    @pointerdown="handleMouseDown"
+    @contextmenu="$event.preventDefault()"
+  ></div>
 </template>
 
 <script>
-import Event from '@/utils/event'
-import { mapState } from 'vuex'
+import Event from "@/utils/event";
+import { mapState } from "vuex";
 
 export default {
-  props: ['enable', 'pan'],
+  props: ["enable", "pan"],
   data() {
     return {
       panMoveTolerance: 4,
@@ -18,79 +24,81 @@ export default {
       originalCurrentPanTop: null,
       currentPan: null,
       nextPan: null
-    }
+    };
   },
   computed: {
-    ...mapState(['visiblePans']),
+    ...mapState(["visiblePans"]),
     nextPanName() {
-      const currentIndex = this.visiblePans.indexOf(this.pan)
-      return this.visiblePans[currentIndex + 1]
+      const currentIndex = this.visiblePans.indexOf(this.pan);
+      return this.visiblePans[currentIndex + 1];
     }
   },
   methods: {
     updateNextPan(style) {
-      Event.$emit(`set-${this.nextPanName}-pan-style`, style)
+      Event.$emit(`set-${this.nextPanName}-pan-style`, style);
     },
     updateCurrentPan(style) {
-      Event.$emit(`set-${this.pan}-pan-style`, style)
+      Event.$emit(`set-${this.pan}-pan-style`, style);
     },
     getNextVisiblePan(current) {
-      const next = current.nextElementSibling
-      if (next && next.style.display === 'none') {
-        return this.getNextVisiblePan(next)
+      const next = current.nextElementSibling;
+      if (next && next.style.display === "none") {
+        return this.getNextVisiblePan(next);
       }
-      return next
+      return next;
     },
     handleMouseDown() {
-      this.resizing = true
-      this.currentPan = this.$refs.resizer.parentNode
-      this.nextPan = this.getNextVisiblePan(this.currentPan)
-      this.originalNextPanTop = parseFloat(this.nextPan.style.top)
-      this.originalNextPanBottom = parseFloat(this.nextPan.style.bottom)
-      this.originalCurrentPanBottom = parseFloat(this.currentPan.style.bottom)
-      this.originalCurrentPanTop = parseFloat(this.currentPan.style.top)
+      this.resizing = true;
+      this.currentPan = this.$refs.resizer.parentNode;
+      this.nextPan = this.getNextVisiblePan(this.currentPan);
+      this.originalNextPanTop = parseFloat(this.nextPan.style.top);
+      this.originalNextPanBottom = parseFloat(this.nextPan.style.bottom);
+      this.originalCurrentPanBottom = parseFloat(this.currentPan.style.bottom);
+      this.originalCurrentPanTop = parseFloat(this.currentPan.style.top);
 
-      document.addEventListener('pointermove', this.handleMouseMove)
-      document.addEventListener('pointerup', this.handleMouseUp)
+      document.addEventListener("pointermove", this.handleMouseMove);
+      document.addEventListener("pointerup", this.handleMouseUp);
 
-      this.currentPan.parentNode.classList.add('resizing')
+      this.currentPan.parentNode.classList.add("resizing");
       document
-        .getElementById('output-iframe')
-        .classList.add('disable-mouse-events')
+        .getElementById("output-iframe")
+        .classList.add("disable-mouse-events");
     },
     handleMouseUp() {
-      this.resizing = false
+      this.resizing = false;
 
-      document.removeEventListener('pointermove', this.handleMouseMove)
-      document.removeEventListener('pointerup', this.handleMouseUp)
+      document.removeEventListener("pointermove", this.handleMouseMove);
+      document.removeEventListener("pointerup", this.handleMouseUp);
 
-      this.currentPan.parentNode.classList.remove('resizing')
+      this.currentPan.parentNode.classList.remove("resizing");
       document
-        .getElementById('output-iframe')
-        .classList.remove('disable-mouse-events')
+        .getElementById("output-iframe")
+        .classList.remove("disable-mouse-events");
 
-      Event.$emit('refresh-editor', { run: false })
+      Event.$emit("refresh-editor", { run: false });
     },
     handleMouseMove(e) {
       if (this.resizing) {
-        e.preventDefault()
-        const landscape = (window.innerWidth > window.innerHeight)
-        const correction = landscape ? 0 : 64
-        const newNextPanTop = ((e.clientY - correction) / (window.innerHeight - correction)) * 100
+        e.preventDefault();
+        const landscape = window.innerWidth > window.innerHeight;
+        const correction = landscape ? 0 : 64;
+        const newNextPanTop =
+          ((e.clientY - correction) / (window.innerHeight - correction)) * 100;
         if (
           newNextPanTop - this.originalCurrentPanTop > this.panMoveTolerance &&
-          100 - newNextPanTop - this.originalNextPanBottom > this.panMoveTolerance
+          100 - newNextPanTop - this.originalNextPanBottom >
+            this.panMoveTolerance
         ) {
-          this.updateNextPan({ top: `${newNextPanTop}%` })
+          this.updateNextPan({ top: `${newNextPanTop}%` });
           const newCurrentPanBottom =
             this.originalCurrentPanBottom -
-            (newNextPanTop - this.originalNextPanTop)
-          this.updateCurrentPan({ bottom: `${newCurrentPanBottom}%` })
+            (newNextPanTop - this.originalNextPanTop);
+          this.updateCurrentPan({ bottom: `${newCurrentPanBottom}%` });
         }
       }
     }
   }
-}
+};
 </script>
 
 <style lang="stylus" scoped>

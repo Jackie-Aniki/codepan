@@ -240,6 +240,22 @@ span:empty {
   max-width: 420px;
 }
 
+#output-iframe {
+  display: flex;
+  flex: 1;
+  justify-content: stretch;
+
+  iframe {
+    border: 0 !important;
+    height: 100%;
+    position: absolute;
+  }
+}
+
+.pan-head {
+  position: relative;
+}
+
 @media (orientation: landscape) {
   header {
     overflow-y: auto;
