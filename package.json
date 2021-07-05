@@ -21,7 +21,9 @@
     "deploy": "surge -p dist -d codepan.net",
     "clean": "rm -rf dist",
     "build": "NODE_ENV=production poi --prod && cp -r static/* dist",
-    "start": "http-server dist -p$PORT"
+    "start": "http-server dist -p$PORT",
+    "snyk-protect": "snyk protect",
+    "prepare": "yarn run snyk-protect"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
@@ -67,11 +69,13 @@
   },
   "license": "MIT",
   "dependencies": {
-    "http-server": "^0.11.1"
+    "http-server": "^0.11.1",
+    "snyk": "^1.653.0"
   },
   "optionalDependencies": {
     "babel-eslint": "^10.0.2",
     "eslint": "^6.1.0",
     "eslint-plugin-vue": "^5.2.3"
-  }
+  },
+  "snyk": true
 }
