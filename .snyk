@@ -1,0 +1,36 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.25.1
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-567746:
+    - eslint > lodash:
+        patched: '2023-08-30T16:46:51.504Z'
+        id: SNYK-JS-LODASH-567746
+        path: eslint > lodash
+    - eslint > inquirer > lodash:
+        patched: '2023-08-30T16:46:51.504Z'
+        id: SNYK-JS-LODASH-567746
+        path: eslint > inquirer > lodash
+    - eslint-plugin-vue > vue-eslint-parser > lodash:
+        patched: '2023-08-30T16:46:51.504Z'
+        id: SNYK-JS-LODASH-567746
+        path: eslint-plugin-vue > vue-eslint-parser > lodash
+    - babel-eslint > @babel/traverse > lodash:
+        patched: '2023-08-30T16:46:51.504Z'
+        id: SNYK-JS-LODASH-567746
+        path: babel-eslint > @babel/traverse > lodash
+    - eslint > table > lodash:
+        patched: '2023-08-30T16:46:51.504Z'
+        id: SNYK-JS-LODASH-567746
+        path: eslint > table > lodash
+    - babel-eslint > @babel/traverse > @babel/generator > lodash:
+        patched: '2023-08-30T16:46:51.504Z'
+        id: SNYK-JS-LODASH-567746
+        path: babel-eslint > @babel/traverse > @babel/generator > lodash
+    - babel-eslint > @babel/traverse > @babel/generator > @babel/types > lodash:
+        patched: '2023-08-30T16:46:51.504Z'
+        id: SNYK-JS-LODASH-567746
+        path: >-
+          babel-eslint > @babel/traverse > @babel/generator > @babel/types >
+          lodash
