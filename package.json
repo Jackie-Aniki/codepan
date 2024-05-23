@@ -6,7 +6,7 @@
   "details": "CodePan is where people prototype front-end apps, you are free to use it offline anytime anywhere.",
   "main": "src/index.js",
   "homepage": "https://codepan.net/",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "repository": {
     "type": "git",
     "url": "https://github.com/Prozi/codepan"
@@ -69,7 +69,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "chef-express": "^2.1.3"
+    "chef-express": "^2.1.4"
   },
   "optionalDependencies": {
     "babel-eslint": "^10.0.2",
