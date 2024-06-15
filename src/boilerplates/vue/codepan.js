@@ -1,6 +1,8 @@
 new Vue({
   el: "#app",
-  data: { count: 0 },
+  data: function () {
+    return { count: 0 };
+  },
   methods: {
     inc() {
       this.count++;

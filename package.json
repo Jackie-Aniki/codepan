@@ -1,11 +1,11 @@
 {
-  "name": "@pietal.dev/codepan",
+  "name": "codepan",
   "productName": "CodePan",
   "description": "Play with JS/CSS/HTML so simple it hurts",
   "details": "CodePan is where people prototype front-end apps, you are free to use it offline anytime anywhere.",
   "main": "src/index.js",
   "homepage": "https://codepan.net/",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "repository": {
     "type": "git",
     "url": "https://github.com/Prozi/codepan"
@@ -14,37 +14,37 @@
     "url": "https://github.com/Prozi/codepan/issues"
   },
   "scripts": {
-    "test": "npm run lint",
-    "lint": "eslint --ext=.vue,.js -c .eslintrc.json src ./*.js --fix",
     "dev": "poi --serve",
     "deploy": "surge -p dist -d codepan.net",
     "clean": "rm -rf dist",
     "build": "NODE_ENV=production poi --prod && cp -r static/* dist",
     "start": "chef-express dist",
-    "format": "npm run lint && prettier --write src"
+    "format": "prettier --write src",
+    "update": "ncu -u && yarn add babel-loader@^8 @babel/core@^7 codemirror@^5 vuex@^3 stylus-loader@^3 vue-router@^3 vue@^2 svelte@^1 stylus@^0.54.5 parse-package-name@^0 -D"
   },
   "devDependencies": {
-    "@babel/core": "^7.23.6",
-    "axios": "^0",
+    "@babel/core": "^7",
+    "axios": "^1",
+    "babel-loader": "^8",
     "babel-preset-poi": "^10.0.2",
     "babel-preset-vue": "^2.0.2",
     "buble": "^0.20.0",
     "buble-loader": "^0.5.1",
     "codemirror": "^5",
     "codemirror-emmet": "^1.0.0",
-    "core-js": "^3.34.0",
-    "debounce": "^1",
+    "core-js": "^3.37.1",
+    "debounce": "^2",
     "element-ui": "^2.15.14",
     "is-electron": "^2.2.2",
-    "less": "^3",
-    "loadjs": "^3",
+    "less": "^4",
+    "loadjs": "^4",
     "marked3": "^0.5.2",
     "notie": "^4.3.1",
     "nprogress": "^0.2.0",
     "object-assign": "^4.1.1",
-    "offline-plugin": "^4.8.0",
+    "offline-plugin": "^5.0.7",
     "parse-package-name": "^0",
-    "pify": "^4",
+    "pify": "^6",
     "poi": "^12.10.3",
     "poi-preset-babel-minify": "^1.0.3",
     "poi-preset-bundle-report": "^2.0.2",
@@ -53,7 +53,7 @@
     "raw-loader": "^4.0.2",
     "reqjs": "^1.0.3",
     "stylus": "^0.54.5",
-    "stylus-loader": "^3.0.2",
+    "stylus-loader": "^3",
     "svelte": "^1",
     "v-tippy": "^2.0.0",
     "vue": "^2",
@@ -63,16 +63,11 @@
     "vue-slim-modal": "^1.0.4",
     "vue-template-compiler": "^2.7.16",
     "vuex": "^3",
-    "webpack": "^4",
+    "webpack": "^5",
     "webpack-node-modules": "^0.1.1"
   },
   "license": "MIT",
   "dependencies": {
     "chef-express": "^2.1.4"
-  },
-  "optionalDependencies": {
-    "babel-eslint": "^10.0.2",
-    "eslint": "^8.56.0",
-    "eslint-plugin-vue": "^9.19.2"
   }
 }
