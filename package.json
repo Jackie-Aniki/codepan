@@ -32,7 +32,7 @@
     "buble-loader": "^0.5.1",
     "codemirror": "^5",
     "codemirror-emmet": "^1.0.0",
-    "core-js": "^3.37.1",
+    "core-js": "^3.38.0",
     "debounce": "^2",
     "element-ui": "^2.15.14",
     "is-electron": "^2.2.2",
