@@ -17,7 +17,8 @@
     "dev": "poi --serve",
     "deploy": "surge -p dist -d codepan.net",
     "clean": "rm -rf dist",
-    "build": "NODE_ENV=production poi --prod && cp -r static/* dist",
+    "build": "poi --prod",
+    "postbuild": "cp -r static/* dist",
     "start": "chef-express dist",
     "format": "prettier --write src",
     "update": "ncu -u && yarn add babel-loader@^8 @babel/core@^7 codemirror@^5 vuex@^3 stylus-loader@^3 vue-router@^3 vue@^2 svelte@^1 stylus@^0.54.5 parse-package-name@^0 -D"
