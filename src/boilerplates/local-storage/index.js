@@ -2,7 +2,7 @@ export default () => {
   return {
     js: {
       code: localStorage.getItem("codepan.js") || "",
-      transformer: "jsx",
+      transformer: "babel",
     },
     html: {
       code: localStorage.getItem("codepan.html") || "",

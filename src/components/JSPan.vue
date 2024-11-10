@@ -38,7 +38,7 @@ import createPan from "@/utils/create-pan";
 export default createPan({
   name: "js",
   editor: {
-    mode: "jsx",
+    mode: "js",
     autofocus: true,
     autoCloseBrackets: true,
   },

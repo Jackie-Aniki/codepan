@@ -5,7 +5,7 @@
   "details": "CodePan is where people prototype front-end apps, you are free to use it offline anytime anywhere.",
   "main": "src/index.js",
   "homepage": "https://codepan.net/",
-  "version": "0.2.7",
+  "version": "0.3.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/Prozi/codepan"
@@ -20,8 +20,11 @@
     "build": "poi --prod",
     "postbuild": "cp -r static/* dist",
     "start": "chef-express dist",
+    "restart": "yarn build && yarn start --port 3000",
+    "precommit": "yarn format",
     "format": "prettier --write src",
-    "update": "ncu -u && yarn add babel-loader@^8 @babel/core@^7 codemirror@^5 vuex@^3 stylus-loader@^3 vue-router@^3 vue@^2 svelte@^1 stylus@^0.54.5 parse-package-name@^0 -D"
+    "update": "ncu -u && yarn add babel-loader@^8 @babel/core@^7 codemirror@^5 vuex@^3 stylus-loader@^3 vue-router@^3 vue@^2 svelte@^1 stylus@^0.54.5 parse-package-name@^0 -D",
+    "amend": "yarn precommit && git commit -a --am --reset-au --no-edit"
   },
   "devDependencies": {
     "@babel/core": "^7",
@@ -33,7 +36,7 @@
     "buble-loader": "^0.5.1",
     "codemirror": "^5",
     "codemirror-emmet": "^1.0.0",
-    "core-js": "^3.38.0",
+    "core-js": "^3.39.0",
     "debounce": "^2",
     "element-ui": "^2.15.14",
     "is-electron": "^2.2.2",
@@ -69,6 +72,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "chef-express": "^2.1.4"
+    "chef-express": "^2.4.2"
   }
 }

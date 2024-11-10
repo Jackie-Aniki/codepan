@@ -231,7 +231,7 @@ const store = new Vuex.Store({
       for (const type of ["html", "js", "css"]) {
         const base = state[type];
         const { code, transformer } = {
-          code: base.code,
+          code: "",
           transformer: base.transformer,
           ...boilerplate[type],
         };
@@ -244,11 +244,14 @@ const store = new Vuex.Store({
         );
       }
 
-      if (!urlParams.pans && boilerplate.showPans) {
-        ps.push(dispatch("showPans", boilerplate.showPans));
+      if (boilerplate.showPans) {
+        const oldHref = location.href.split("?")[0];
+        const newHref = `${oldHref}?pans=${boilerplate.showPans.join(",")}`;
+
+        history.pushState({}, document.title, newHref);
       }
 
-      const { activePan = "js" } = boilerplate;
+      const { activePan = boilerplate.showPans[0] || "js" } = boilerplate;
       ps.push(dispatch("setActivePan", activePan));
       ps.push(dispatch("clearLogs"));
 

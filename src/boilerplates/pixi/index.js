@@ -7,7 +7,7 @@ export default async () => {
   return {
     js: {
       code: jsCode,
-      transformer: "jsx",
+      transformer: "babel",
     },
     html: {
       code: htmlCode,

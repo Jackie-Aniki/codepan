@@ -17,6 +17,9 @@
       <el-dropdown-item command="es-import"> ES import </el-dropdown-item>
       <el-dropdown-item command="rust"> Rust </el-dropdown-item>
       <el-dropdown-item command="pixi"> Pixi </el-dropdown-item>
+      <el-dropdown-item command="detect-collisions">
+        Detect Collisions
+      </el-dropdown-item>
       <el-dropdown-item command="local-storage">
         Local Storage
       </el-dropdown-item>

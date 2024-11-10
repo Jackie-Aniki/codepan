@@ -213,5 +213,8 @@ export default {
   display: flex;
   flex-direction: column;
   position: relative;
+  max-height: 100vh;
+  max-width: 100vw;
+  overflow: auto;
 }
 </style>
