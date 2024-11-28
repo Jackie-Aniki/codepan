@@ -44,9 +44,15 @@ Sets the desired layout of open pans
 
 Doesnt show ads, menu or pan header titles
 
+## Credits
+
+v0.1 &copy; [EGOIST](https://github.com/egoist)
+v0.2+ &copy; [PROZI](https://github.com/Prozi)
+
 ## License
 
 MIT
 
-v.0.1.x &copy; [EGOIST](https://github.com/egoist)
-v.0.2.x &copy; [PROZI](https://github.com/Prozi)
+## You can buy me a coffee
+
+<https://paypal.me/jacekpietal>
