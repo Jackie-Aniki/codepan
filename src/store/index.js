@@ -51,12 +51,13 @@ const getFileNameByLang = {
 };
 
 // Load entries of all boilerplates
-const boilerplates = {
+export const boilerplates = {
   empty: async () => ({
     ...emptyPans(),
     showPans: ["js", "output"],
   }),
 };
+
 function importAll(r) {
   r.keys().forEach((key) => {
     const name = /^\.\/(.+)\//.exec(key)[1];
@@ -217,22 +218,20 @@ const store = new Vuex.Store({
       commit("SET_TRANSFORM", status);
     },
     // todo: simplify this action
-    async setBoilerplate({ state, dispatch }, boilerplate) {
-      if (!boilerplate) return;
+    async setBoilerplate({ state, dispatch }, boilerplateOrName) {
+      if (!boilerplateOrName) return;
+
+      const boilerplate =
+        typeof boilerplateOrName === "string"
+          ? await boilerplates[boilerplateOrName]()
+          : boilerplateOrName;
 
       progress.start();
 
-      if (typeof boilerplate === "string") {
-        boilerplate = await boilerplates[boilerplate]();
-      }
-
-      if (boilerplate.showPans) {
-        setTimeout(() => {
-          const oldHref = location.href.split("?")[0];
-          const newHref = `${oldHref}?pans=${boilerplate.showPans.join(",")}`;
-
-          history.pushState({}, document.title, newHref);
-        });
+      const pans = `?pans=${boilerplate.showPans.join(",")}`;
+      const hash = `#/boilerplate/${boilerplateOrName}${pans}`;
+      if (location.hash !== hash) {
+        location.hash = hash;
       }
 
       const ps = [];

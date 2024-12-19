@@ -120,18 +120,6 @@ export default {
     await handleRouteChange(to, from, this);
     next();
   },
-  watch: {
-    "$route.query.show": {
-      handler(next, prev) {
-        if (!next && prev) {
-          this.showPans(["js", "output"]);
-        } else if (next !== prev) {
-          this.showPans(next.split(","));
-        }
-      },
-      immediate: true,
-    },
-  },
   mounted() {
     window.addEventListener("storage", this.handleStorageChanged);
 
