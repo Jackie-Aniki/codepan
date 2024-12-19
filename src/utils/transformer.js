@@ -188,7 +188,6 @@ export {
   loadPug,
   loadMarkdown,
   transformers,
-  loadSvelte,
   loadReason,
   loadCoffeeScript2,
   loadCssnext,
@@ -197,4 +196,5 @@ export {
   loadRust,
   loadTypescript,
   loadStylus,
+  loadSvelte,
 };

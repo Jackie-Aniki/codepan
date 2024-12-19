@@ -6,7 +6,6 @@ import {
   loadBabel,
   loadPug,
   loadMarkdown,
-  loadSvelte,
   loadReason,
   loadCoffeeScript2,
   loadCssnext,
@@ -15,6 +14,7 @@ import {
   loadRust,
   loadTypescript,
   loadStylus,
+  loadSvelte,
 } from "@/utils/transformer";
 import api from "@/utils/github-api";
 import Event from "@/utils/event";
@@ -226,6 +226,15 @@ const store = new Vuex.Store({
         boilerplate = await boilerplates[boilerplate]();
       }
 
+      if (boilerplate.showPans) {
+        setTimeout(() => {
+          const oldHref = location.href.split("?")[0];
+          const newHref = `${oldHref}?pans=${boilerplate.showPans.join(",")}`;
+
+          history.pushState({}, document.title, newHref);
+        });
+      }
+
       const ps = [];
 
       for (const type of ["html", "js", "css"]) {
@@ -242,13 +251,6 @@ const store = new Vuex.Store({
             transformer,
           })
         );
-      }
-
-      if (boilerplate.showPans) {
-        const oldHref = location.href.split("?")[0];
-        const newHref = `${oldHref}?pans=${boilerplate.showPans.join(",")}`;
-
-        history.pushState({}, document.title, newHref);
       }
 
       const { activePan = boilerplate.showPans[0] || "js" } = boilerplate;
