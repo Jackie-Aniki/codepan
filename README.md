@@ -1,6 +1,6 @@
 # CodePan
 
-[![CircleCI](https://circleci.com/gh/onizuka-aniki/codepan/tree/main.svg?style=shield)](https://circleci.com/gh/onizuka-aniki/codepan/tree/main) [![chat](https://img.shields.io/badge/chat-on%20discord-7289DA.svg?style=flat)](https://chat.egoist.moe)
+[![CircleCI](https://circleci.com/gh/onizuka-aniki/codepan/tree/main.svg?style=shield)](https://circleci.com/gh/onizuka-aniki/codepan/tree/main)
 
 Play with JS/CSS/HTML so simple it hurts, the web playground that works offline.
 
