@@ -3,7 +3,6 @@
     <run-button />
     <autorun-button />
     <pan-toggles />
-    <span class="home-header-left-item changelog-indicator" />
     <add-boilerplate />
     <add-library />
     <save-gist />

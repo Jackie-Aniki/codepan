@@ -1,6 +1,6 @@
 # CodePan
 
-[![CircleCI](https://circleci.com/gh/onizuka-aniki/codepan/tree/main.svg?style=shield)](https://circleci.com/gh/onizuka-aniki/codepan/tree/main)
+[<img src="https://img.shields.io/circleci/build/github/onizuka-aniki/codepan/main?style=for-the-badge" alt="build status" />](https://app.circleci.com/pipelines/github/onizuka-aniki/codepan)
 
 Play with JS/CSS/HTML so simple it hurts, the web playground that works offline.
 

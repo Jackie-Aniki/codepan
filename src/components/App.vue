@@ -60,8 +60,8 @@ aside:empty {
 
 header {
   width: 100vw;
-  min-height: 2.5rem;
-  padding: 0 0.25rem;
+  min-height: 3rem;
+  padding: 0 0.3rem;
   display: flex;
   flex-direction: row;
 
@@ -77,6 +77,10 @@ header {
       width: 100%;
       height: 100%;
     }
+  }
+
+  > .el-checkbox {
+    height: auto !important;
   }
 
   .el-button,
@@ -379,6 +383,7 @@ label.el-checkbox {
     transform-origin: center !important;
     margin: 0 !important;
     justify-content: space-evenly;
+    text-align: center;
   }
 
   .popper__arrow {
