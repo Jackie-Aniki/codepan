@@ -60,7 +60,7 @@ aside:empty {
 
 header {
   width: 100vw;
-  min-height: 2rem;
+  min-height: 2.5rem;
   padding: 0 0.25rem;
   display: flex;
   flex-direction: row;
