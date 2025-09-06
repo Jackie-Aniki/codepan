@@ -4,41 +4,47 @@
   "description": "Play with JS/CSS/HTML so simple it hurts",
   "details": "CodePan is where people prototype front-end apps, you are free to use it offline anytime anywhere.",
   "main": "src/index.js",
-  "homepage": "https://codepan.net/",
-  "version": "0.3.2",
+  "homepage": "https://onizuka-aniki.github.io/codepan/",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Prozi/codepan"
+    "url": "https://github.com/onizuka-aniki/codepan"
   },
   "bugs": {
-    "url": "https://github.com/Prozi/codepan/issues"
+    "url": "https://github.com/onizuka-aniki/codepan/issues"
   },
   "scripts": {
-    "dev": "poi --serve",
-    "deploy": "surge -p dist -d codepan.net",
-    "clean": "rm -rf dist",
-    "build": "poi --prod",
-    "postbuild": "cp -r static/* dist",
-    "start": "chef-express dist",
-    "restart": "yarn build && yarn start --port 3000",
-    "precommit": "yarn format",
-    "format": "prettier --write src",
-    "update": "ncu -u && yarn add babel-loader@^8 @babel/core@^7 codemirror@^5 vuex@^3 stylus-loader@^3 vue-router@^3 vue@^2 svelte@^1 stylus@^0.54.5 parse-package-name@^0 -D",
-    "amend": "yarn precommit && git commit -a --am --reset-au --no-edit"
+    "dev": "poi --serve --port 3000",
+    "prebuild": "rm -rf docs",
+    "build": "poi --prod --out-dir=docs --public-url=/codepan/",
+    "postbuild": "cp -r static/* docs",
+    "start": "chef-express docs --port 3000",
+    "restart": "yarn build && yarn start",
+    "update": "npx npm-check-updates -u && yarn add babel-loader@^8 @babel/core@^7 codemirror@^5 vuex@^3 stylus-loader@^3 vue-router@^3 vue@^2 svelte@^1 stylus@^0.54.5 parse-package-name@^0 offline-plugin@~4.8.0 -D",
+    "precommit": "npm run lint && npm run format && npm run build",
+    "lint": "eslint src --ignore-pattern '**/{codepan.js,pwa.js}' --fix",
+    "format": "prettier . --write",
+    "amend": "npm run precommit;git add docs -f;git commit -a --am --no-edit"
   },
   "devDependencies": {
     "@babel/core": "^7",
+    "@babel/standalone": "^7.28.4",
+    "@stylistic/eslint-plugin": "^5.3.1",
     "axios": "^1",
     "babel-loader": "^8",
     "babel-preset-poi": "^10.0.2",
     "babel-preset-vue": "^2.0.2",
     "buble": "^0.20.0",
     "buble-loader": "^0.5.1",
+    "chef-express": "^3.2.3",
     "codemirror": "^5",
     "codemirror-emmet": "^1.0.0",
-    "core-js": "^3.39.0",
+    "core-js": "^3.45.1",
     "debounce": "^2",
     "element-ui": "^2.15.14",
+    "eslint": "^9.35.0",
+    "eslint-plugin-json": "^4.0.1",
+    "hyperapp": "^2.0.22",
     "is-electron": "^2.2.2",
     "less": "^4",
     "loadjs": "^4",
@@ -46,13 +52,14 @@
     "notie": "^4.3.1",
     "nprogress": "^0.2.0",
     "object-assign": "^4.1.1",
-    "offline-plugin": "^5.0.7",
+    "offline-plugin": "~4.8.0",
     "parse-package-name": "^0",
     "pify": "^6",
     "poi": "^12.10.3",
     "poi-preset-babel-minify": "^1.0.3",
     "poi-preset-bundle-report": "^2.0.2",
     "poi-preset-offline": "^9.0.3",
+    "prettier": "^3.6.2",
     "promise-polyfill": "^8.3.0",
     "raw-loader": "^4.0.2",
     "reqjs": "^1.0.3",
@@ -63,6 +70,7 @@
     "vue": "^2",
     "vue-feather-icons": "^5.1.0",
     "vue-ga": "^1.1.0",
+    "vue-inline": "^1.0.1",
     "vue-router": "^3",
     "vue-slim-modal": "^1.0.4",
     "vue-template-compiler": "^2.7.16",
@@ -70,8 +78,5 @@
     "webpack": "^5",
     "webpack-node-modules": "^0.1.1"
   },
-  "license": "MIT",
-  "dependencies": {
-    "chef-express": "^2.4.2"
-  }
+  "license": "MIT"
 }

@@ -1,12 +1,12 @@
 # CodePan
 
-[![CircleCI](https://circleci.com/gh/Prozi/codepan/tree/master.svg?style=shield)](https://circleci.com/gh/Prozi/codepan/tree/master) [![chat](https://img.shields.io/badge/chat-on%20discord-7289DA.svg?style=flat)](https://chat.egoist.moe)
+[![CircleCI](https://circleci.com/gh/onizuka-aniki/codepan/tree/main.svg?style=shield)](https://circleci.com/gh/onizuka-aniki/codepan/tree/main) [![chat](https://img.shields.io/badge/chat-on%20discord-7289DA.svg?style=flat)](https://chat.egoist.moe)
 
 Play with JS/CSS/HTML so simple it hurts, the web playground that works offline.
 
 ## Demo
 
-https://code.pietal.dev/
+https://onizuka-aniki.github.io/codepan/
 
 ## Why
 
@@ -46,13 +46,9 @@ Doesnt show ads, menu or pan header titles
 
 ## Credits
 
-v0.1 &copy; [EGOIST](https://github.com/egoist)
-v0.2+ &copy; [PROZI](https://github.com/Prozi)
+- v0.1 &copy; [Egoist](https://github.com/egoist)
+- v0.2+ &copy; [Onizuka-Aniki](https://github.com/onizuka-aniki)
 
 ## License
 
 MIT
-
-## You can buy me a coffee
-
-<https://paypal.me/jacekpietal>

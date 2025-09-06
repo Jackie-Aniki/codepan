@@ -33,14 +33,14 @@
 </template>
 
 <script>
-import createPan from "@/utils/create-pan";
+import createPan from '@/utils/create-pan'
 
 export default createPan({
-  name: "js",
+  name: 'js',
   editor: {
-    mode: "js",
+    mode: 'js',
     autofocus: true,
-    autoCloseBrackets: true,
-  },
-});
+    autoCloseBrackets: true
+  }
+})
 </script>

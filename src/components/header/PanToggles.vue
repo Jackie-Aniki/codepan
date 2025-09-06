@@ -32,34 +32,28 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
-import {
-  Button,
-  Badge,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem,
-} from "element-ui";
+import { mapState, mapActions } from 'vuex'
+import { Button, Badge, Dropdown, DropdownMenu, DropdownItem } from 'element-ui'
 
 export default {
   components: {
-    "el-button": Button,
-    "el-dropdown": Dropdown,
-    "el-dropdown-menu": DropdownMenu,
-    "el-dropdown-item": DropdownItem,
-    "el-badge": Badge,
+    'el-button': Button,
+    'el-dropdown': Dropdown,
+    'el-dropdown-menu': DropdownMenu,
+    'el-dropdown-item': DropdownItem,
+    'el-badge': Badge
   },
   computed: {
-    ...mapState(["visiblePans"]),
-    totalLogsCount: (state) => (state.logs ? state.logs.length : 0),
+    ...mapState(['visiblePans']),
+    totalLogsCount: (state) => (state.logs ? state.logs.length : 0)
   },
   methods: {
-    ...mapActions(["togglePan"]),
+    ...mapActions(['togglePan']),
     isVisible(pan) {
-      return this.visiblePans.indexOf(pan) !== -1;
-    },
-  },
-};
+      return this.visiblePans.indexOf(pan) !== -1
+    }
+  }
+}
 </script>
 
 <style lang="stylus" scoped>

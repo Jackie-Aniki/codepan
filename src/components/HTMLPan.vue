@@ -25,13 +25,13 @@
 </template>
 
 <script>
-import createPan from "@/utils/create-pan";
+import createPan from '@/utils/create-pan'
 
 export default createPan({
-  name: "html",
+  name: 'html',
   editor: {
-    mode: "htmlmixed",
-    autoCloseTags: true,
-  },
-});
+    mode: 'htmlmixed',
+    autoCloseTags: true
+  }
+})
 </script>

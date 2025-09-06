@@ -28,32 +28,32 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
-import { Badge, Button } from "element-ui";
+import { mapActions, mapState } from 'vuex'
+import { Badge, Button } from 'element-ui'
 
 export default {
   watch: {
     logs() {
-      const { console } = this.$refs;
+      const { console } = this.$refs
       this.$nextTick(() => {
-        console.scrollTop = console.scrollHeight;
-      });
-    },
+        console.scrollTop = console.scrollHeight
+      })
+    }
   },
   computed: {
-    ...mapState(["activePan", "logs"]),
+    ...mapState(['activePan', 'logs']),
     isActivePan() {
-      return this.activePan === "console";
-    },
+      return this.activePan === 'console'
+    }
   },
   methods: {
-    ...mapActions(["clearLogs", "setActivePan"]),
+    ...mapActions(['clearLogs', 'setActivePan'])
   },
   components: {
-    "el-badge": Badge,
-    "el-button": Button,
-  },
-};
+    'el-badge': Badge,
+    'el-button': Button
+  }
+}
 </script>
 
 <style lang="stylus" scoped>

@@ -8,15 +8,15 @@
 </template>
 
 <script>
-import progress from "nprogress";
+import progress from 'nprogress'
 
 export default {
   beforeRouteEnter(from, to, next) {
     next(() => {
-      progress.done();
-    });
-  },
-};
+      progress.done()
+    })
+  }
+}
 </script>
 
 <style lang="stylus" scoped>

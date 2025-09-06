@@ -7,20 +7,20 @@
 </template>
 
 <script>
-import HTMLPan from "@/components/HTMLPan.vue";
-import JSPan from "@/components/JSPan.vue";
-import OutputPan from "@/components/OutputPan.vue";
-import ConsolePan from "@/components/ConsolePan.vue";
-import CSSPan from "@/components/CSSPan.vue";
+import HTMLPan from '@/components/HTMLPan.vue'
+import JSPan from '@/components/JSPan.vue'
+import OutputPan from '@/components/OutputPan.vue'
+import ConsolePan from '@/components/ConsolePan.vue'
+import CSSPan from '@/components/CSSPan.vue'
 
 export default {
   components: {
-    "html-pan": HTMLPan,
-    "js-pan": JSPan,
-    "output-pan": OutputPan,
-    "console-pan": ConsolePan,
-    "css-pan": CSSPan,
+    'html-pan': HTMLPan,
+    'js-pan': JSPan,
+    'output-pan': OutputPan,
+    'console-pan': ConsolePan,
+    'css-pan': CSSPan
   },
-  props: ["pan"],
-};
+  props: ['pan']
+}
 </script>

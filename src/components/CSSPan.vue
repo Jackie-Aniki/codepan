@@ -29,13 +29,13 @@
 </template>
 
 <script>
-import createPan from "@/utils/create-pan";
+import createPan from '@/utils/create-pan'
 
 export default createPan({
-  name: "css",
+  name: 'css',
   editor: {
-    mode: "css",
-    autoCloseBrackets: true,
-  },
-});
+    mode: 'css',
+    autoCloseBrackets: true
+  }
+})
 </script>
