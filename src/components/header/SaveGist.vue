@@ -1,7 +1,7 @@
 <template>
   <el-button
     v-if="!inIframe"
-    v-tippy="{ position: 'bottom' }"
+    v-tippy="{ arrow: true }"
     :icon="editorStatus === 'saving' ? 'el-icon-loading' : 'el-icon-upload'"
     plain
     :disabled="editorStatus === 'saving'"

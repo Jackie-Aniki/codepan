@@ -1,7 +1,6 @@
-import Vue from 'vue'
 import Router from 'vue-router'
+import Vue from 'vue'
 import progress from 'nprogress'
-import ga from 'vue-ga'
 
 Vue.use(Router)
 
@@ -41,8 +40,6 @@ const router = new Router({
     }
   ]
 })
-
-ga(router, 'UA-54857209-13')
 
 router.beforeEach((to, from, next) => {
   progress.start()

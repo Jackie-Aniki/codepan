@@ -4,29 +4,35 @@
     class="home-header-left-item"
     @command="togglePan"
   >
-    <el-button icon="el-icon-thumb"> Toggle Pans </el-button>
+    <el-button
+      v-tippy="{ arrow: true }"
+      title="Toggle pans"
+      icon="el-icon-menu"
+    >
+      Toggle Pans
+    </el-button>
     <el-dropdown-menu slot="dropdown" class="pan-toggles">
-      <el-dropdown-item :class="{ visible: isVisible('html') }" command="html">
-        HTML
-      </el-dropdown-item>
-      <el-dropdown-item :class="{ visible: isVisible('css') }" command="css">
-        CSS
-      </el-dropdown-item>
-      <el-dropdown-item :class="{ visible: isVisible('js') }" command="js">
-        JS
-      </el-dropdown-item>
-      <el-dropdown-item
-        :class="{ visible: isVisible('console') }"
-        command="console"
+      <el-dropdown-item :class="{ visible: isVisible('code') }" command="code"
+        >Code</el-dropdown-item
       >
-        <el-badge :is-dot="totalLogsCount > 0"> Console </el-badge>
-      </el-dropdown-item>
       <el-dropdown-item
         :class="{ visible: isVisible('output') }"
         command="output"
+        >Output</el-dropdown-item
       >
-        Output
-      </el-dropdown-item>
+      <el-dropdown-item
+        :class="{ visible: isVisible('console') }"
+        command="console"
+        ><el-badge :is-dot="totalLogsCount > 0"
+          >Console</el-badge
+        ></el-dropdown-item
+      >
+      <el-dropdown-item :class="{ visible: isVisible('html') }" command="html"
+        >HTML</el-dropdown-item
+      >
+      <el-dropdown-item :class="{ visible: isVisible('css') }" command="css"
+        >CSS</el-dropdown-item
+      >
     </el-dropdown-menu>
   </el-dropdown>
 </template>
@@ -56,20 +62,34 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style scoped>
 .el-badge {
   vertical-align: top;
 }
 
 .pan-toggles {
-  &>*::before {
-    content: '🔳';
+  & > *::before {
+    content: '+';
     display: inline-block;
-    margin-right: 6px;
+    margin-right: 10px;
+    width: 19px;
+    height: 19px;
+    line-height: 19.5px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 4px;
+    background: black;
+    color: white;
   }
 
-  &>*:not(.visible)::before {
-    content: '⬜️';
+  & > *:not(.visible)::before {
+    content: '–';
+    font-size: 20px;
+    line-height: 17.5px;
+    color: gray;
+    opacity: 0.5;
   }
 }
 </style>

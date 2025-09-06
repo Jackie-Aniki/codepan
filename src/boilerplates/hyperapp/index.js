@@ -9,10 +9,10 @@ export default async () => {
       code: htmlCode,
       transformer: 'html'
     },
-    js: {
+    code: {
       code: jsCode,
       transformer: 'babel'
     },
-    showPans: ['js', 'output']
+    showPans: ['code', 'output']
   }
 }

@@ -2,10 +2,10 @@ export default async () => {
   const jsCode = await import('!raw-loader!./codepan.js')
 
   return {
-    js: {
+    code: {
       code: jsCode,
       transformer: 'babel'
     },
-    showPans: ['js', 'console']
+    showPans: ['code', 'console']
   }
 }

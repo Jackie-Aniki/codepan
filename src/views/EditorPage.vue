@@ -5,13 +5,13 @@
   >
     <home-header v-if="urlParams.headless !== 'true'" />
 
-    <section class="dialogs">
+    <aside class="dialogs">
       <compiled-code-dialog
-        v-if="js.code"
-        v-model:show="showCompiledCode.js"
-        :code="js"
+        v-if="code.code"
+        v-model:show="showCompiledCode.code"
+        :code="code"
         highlight="javascript"
-        type="js"
+        type="code"
       />
 
       <compiled-code-dialog
@@ -29,7 +29,7 @@
         highlight="css"
         type="css"
       />
-    </section>
+    </aside>
 
     <div
       :class="{
@@ -42,13 +42,11 @@
       <dynamic-pan v-for="pan in visiblePans" :key="pan" :pan="pan" />
 
       <dynamic-pan
-        v-if="visiblePans.indexOf('output') === -1"
+        v-if="!visiblePans.includes('output')"
         :key="'output'"
         :pan="'output'"
         style="display: none"
       />
-
-      <code-fund />
     </div>
   </div>
 </template>
@@ -60,7 +58,6 @@ import notie from 'notie'
 import isElectron from 'is-electron'
 import { inIframe } from '@/utils'
 import Event from '@/utils/event'
-import CodeFund from '@/components/CodeFund.vue'
 import HomeHeader from '@/components/HomeHeader.vue'
 import DynamicPan from '@/components/DynamicPan.vue'
 import CompiledCodeDialog from '@/components/CompiledCodeDialog.vue'
@@ -94,7 +91,7 @@ export default {
   data() {
     return {
       showCompiledCode: {
-        js: false,
+        code: false,
         css: false,
         html: false
       },
@@ -105,7 +102,7 @@ export default {
     ...mapState([
       'visiblePans',
       'editorStatus',
-      'js',
+      'code',
       'css',
       'html',
       'urlParams'
@@ -146,7 +143,6 @@ export default {
   },
   created() {
     Event.$on('refresh-editor', () => this.refreshFromUrl())
-
     Event.$on('show-compiled-code', (type) => {
       this.showCompiledCode[type] = true
     })
@@ -187,7 +183,6 @@ export default {
   components: {
     HomeHeader,
     DynamicPan,
-    CodeFund,
     CompiledCodeDialog
   }
 }
@@ -195,14 +190,3 @@ export default {
 
 <style src="codemirror/lib/codemirror.css"></style>
 <style src="codemirror/addon/fold/foldgutter.css"></style>
-
-<style lang="stylus" scoped>
-.pans {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  max-height: 100vh;
-  max-width: 100vw;
-  overflow: auto;
-}
-</style>

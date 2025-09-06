@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[20],{821:function(p,s,t){"use strict";t.r(s),s.default='<script src="https://unpkg.com/hyperapp@2.0.0/dist/hyperapp.js"><\/script>\n'}}]);

@@ -1,15 +1,15 @@
 <template>
-  <section class="run-buttons">
-    <el-button
-      :icon="iframeStatusIcon"
-      :type="iframeStatus === 'error' ? 'danger' : 'primary'"
-      class="home-header-right-item"
-      plain
-      @click="runCode"
-    >
-      Run
-    </el-button>
-  </section>
+  <el-button
+    v-tippy="{ arrow: true }"
+    :icon="iframeStatusIcon"
+    :type="iframeStatus === 'error' ? 'danger' : 'primary'"
+    class="home-header-right-item"
+    plain
+    title="Run"
+    @click="runCode"
+  >
+    Run
+  </el-button>
 </template>
 
 <script>
@@ -34,7 +34,7 @@ export default {
         case 'error':
           return 'el-icon-warning'
         default:
-          return 'el-icon-caret-right'
+          return 'el-icon-video-play'
       }
     }
   },

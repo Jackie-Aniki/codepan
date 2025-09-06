@@ -5,7 +5,7 @@ export default async () => {
   ])
 
   return {
-    js: {
+    code: {
       code: jsCode,
       transformer: 'babel'
     },
@@ -13,6 +13,6 @@ export default async () => {
       code: htmlCode,
       transformer: 'html'
     },
-    showPans: ['js', 'output']
+    showPans: ['code', 'output']
   }
 }

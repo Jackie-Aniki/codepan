@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[9],{883:function(e,n,t){"use strict";t.r(n);var o=t(21),s=t.n(o),c={mounted(){s.a.done(),localStorage.setItem("codepan:gh-token",this.$route.query.access_token),window.close()}},u=t(248),l=Object(u.a)(c,(function(){return(0,this._self._c)("div",[this._v("success!")])}),[],!1,null,null,null);n.default=l.exports}}]);

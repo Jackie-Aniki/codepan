@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[22],{823:function(s,i,p){"use strict";p.r(i),i.default='<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.0.4/pixi.js"><\/script>\n<script src="https://unpkg.com/pixi-tiled-utils@1.1.2/index.js"><\/script>\n'}}]);

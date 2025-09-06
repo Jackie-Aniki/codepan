@@ -4,7 +4,13 @@
     class="home-header-left-item"
     @command="setBoilerplate"
   >
-    <el-button icon="el-icon-star-on"> Boilerplates </el-button>
+    <el-button
+      v-tippy="{ arrow: true }"
+      title="Boilerplate"
+      icon="el-icon-trophy"
+    >
+      Boilerplates
+    </el-button>
     <el-dropdown-menu slot="dropdown">
       <el-dropdown-item command="empty"> Empty </el-dropdown-item>
       <el-dropdown-item command="react"> React </el-dropdown-item>

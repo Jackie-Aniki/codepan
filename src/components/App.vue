@@ -1,7 +1,5 @@
 <template>
-  <div id="app">
-    <router-view />
-  </div>
+  <router-view />
 </template>
 
 <script>
@@ -15,25 +13,22 @@ export default {
 <style src="v-tippy/dist/tippy.css"></style>
 <style src="notie/dist/notie.min.css"></style>
 
-<style lang="stylus">
-html, body, #app, .page {
+<style>
+html,
+body {
+  width: 100%;
   height: 100%;
-}
-
-.pan > *:not(.pan-head) {
-  overflow-y: auto;
-  height: 100% !important;
-  background: transparent !important;
+  margin: 0;
 }
 
 body {
   background-color: #f9f9f9;
-  margin: 0;
   font-family: Arial;
-}
-
-body, .pan-head, .pan-head * {
   font-size: 10px;
+
+  > iframe {
+    display: none;
+  }
 }
 
 * {
@@ -47,26 +42,257 @@ pre {
   line-height: 1.45;
   background-color: #f6f8fa;
   border-radius: 3px;
+
+  > code {
+    padding: 0;
+    margin: 0;
+    font-size: 100%;
+    word-break: normal;
+    white-space: pre;
+    background: transparent;
+    border: 0;
+  }
 }
 
-pre > code {
+aside:empty {
+  display: none;
+}
+
+header {
+  width: 100vw;
+  min-height: 2rem;
+  padding: 0 0.25rem;
+  display: flex;
+  flex-direction: row;
+
+  * {
+    padding: 0 !important;
+  }
+
+  > * {
+    flex-grow: 1;
+    flex-basis: auto;
+
+    > .el-button {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .el-button,
+  .el-checkbox {
+    color: #28f !important;
+    background-color: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    display: flex !important;
+    margin: 0 !important;
+    justify-content: center;
+    align-items: center;
+
+    span:not(i):not(.el-checkbox__input) {
+      display: none;
+    }
+  }
+
+  i {
+    transform: scale(1.6);
+  }
+
+  .el-checkbox__input {
+    transform: scale(1.4);
+    margin-top: -4px !important;
+  }
+}
+
+.el-checkbox__input.is-checked,
+.el-checkbox__input.is-indeterminate {
+  .el-checkbox__inner {
+    background-color: #28f;
+    border-color: #28f;
+  }
+}
+
+pre {
+  word-break: break-all;
+}
+
+.el-checkbox {
+  .el-checkbox__input {
+    padding: 0;
+    height: 14px !important;
+    width: 14px !important;
+  }
+
+  .el-checkbox__inner {
+    display: inline-block !important;
+  }
+}
+
+.el-badge__content.is-fixed {
+  top: 50%;
+  right: -6px;
   padding: 0;
-  margin: 0;
-  font-size: 100%;
-  word-break: normal;
-  white-space: pre;
-  background: transparent;
-  border: 0;
+  font-size: inherit;
+  width: 1.6em;
+  height: 1.6em;
+  line-height: 1.6em;
+  user-select: none;
+  text-align: center;
+  background: #f44;
+  text-shadow: 0 0 2px red;
+  box-shadow: 0 0 2px red inset;
 }
 
-.el-dropdown-link {
-  cursor: pointer;
-  user-select: none;
+.pan-head button {
+  padding: 4px 8px;
+  vertical-align: top;
+  float: right;
+
+  span {
+    margin-left: 4px;
+  }
+}
+
+.compiled-code-dialog {
+  width: calc(100% - 20px) !important;
+  max-width: 800px !important;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+.tippy-popper[x-placement^='top'] .tippy-arrow {
+  margin-bottom: 1px !important;
+}
+
+.tippy-popper[x-placement^='bottom'] .tippy-arrow {
+  margin-top: 1px !important;
+}
+
+span:empty {
+  display: none;
+}
+
+.el-dropdown .el-icon--right {
+  position: absolute;
+  top: 0;
+}
+
+.el-message-box {
+  width: calc(100% - 20px) !important;
+  max-width: 420px;
+}
+
+#output-iframe {
+  display: flex;
+  flex: 1;
+  justify-content: stretch;
+
+  iframe {
+    border: 0 !important;
+    height: 100%;
+    position: absolute;
+  }
+}
+
+.pans {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  z-index: 1;
+  position: relative;
+}
+
+.pan {
+  flex: auto;
+  left: 0 !important;
+  right: 0 !important;
+  border-top: 1px dashed #048;
+  overflow: auto;
+  position: relative;
+
+  .pan-head {
+    padding: 4px 4px 0 4px;
+    line-height: 1;
+
+    .el-dropdown {
+      font-size: inherit;
+      color: inherit;
+    }
+  }
+}
+
+.CodeMirror-sizer {
+  margin-left: 0 !important;
+}
+
+.CodeMirror-lines {
+  padding: 0 !important;
+}
+
+.CodeMirror-gutter-wrapper,
+.CodeMirror-gutters {
+  display: none;
+}
+
+.CodeMirror-scroll,
+.CodeMirror-wrap {
+  height: 100% !important;
+}
+
+.pans.headless {
+  height: 100%;
+
+  .pan-head {
+    display: none;
+  }
+}
+
+.pan {
+  flex: 1;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  background-color: #f9f9f9;
+
+  &.active-pan {
+    background-color: white;
+  }
+
+  .pan-head {
+    i.el-icon-caret-bottom {
+      vertical-align: middle;
+      transform: scale(1.4);
+    }
+
+    svg {
+      display: none;
+    }
+  }
+}
+
+label.el-checkbox {
+  padding: 0 !important;
+}
+
+.pan-head-right > svg {
+  display: none;
 }
 
 #nprogress {
   z-index: 9999;
   position: relative;
+}
+
+.el-dropdown-link {
+  cursor: pointer;
+  user-select: none;
 }
 
 .el-dropdown-menu {
@@ -104,265 +330,17 @@ pre > code {
   }
 }
 
-.notie-overlay {
-  z-index: 9900;
-}
-
-header, header .el-button, header .el-checkbox {
-  display: flex;
-  flex-direction: row;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 0;
-  height: 100%;
-  margin: 0;
-  border-radius: 0;
-}
-
-header > *, header .el-dropdown, header .checkbox__inner {
-  padding: 0 !important;
-  margin: 0 !important;
-  width: 100%;
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-}
-
-pre {
-  word-break: break-all !important;
-}
-
-.pans[class*=row] {
-  #cf, .codefund-container {
-    display: none !important;
-  }
-}
-
-.codefund-container, .codefund-placeholder, #cf > span {
-  display: block !important;
-  position: static !important;
-}
-
-.codefund-placeholder, #cf > span {
-  line-height: 1.25em;
-  box-sizing: border-box;
-}
-
-.codefund-placeholder {
-  padding: 12px 0 13px 0 !important;
-  text-align: center;
-  border-top: 1px solid #bfbfbf;
-  background: #eeeeee;
-}
-
-header {
-  .el-button, .el-checkbox {
-    border: 0 !important;
-    border-radius: 0 !important;
-    padding: 0;
-    font-variant: small-caps;
-    color: #409EFF !important;
-    background: none !important;
-
-    i, .el-checkbox__inner {
-      margin: 0 10px 0 0 !important;
-    }
-  }
-
-  .el-button > *, .el-checkbox span {
-    margin: 0;
-    padding: 0;
-    display: block;
-  }
-
-  .el-checkbox:hover, .el-button:hover {
-    color: black !important;
-  }
-
-  .el-checkbox:focus, .el-button:focus, .el-checkbox:active, .el-button:active {
-    background: lightblue !important;
-    color: white !important;
-  }
-
-  span.el-checkbox__inner {
-    margin: 0 !important;
-  }
-
-  span.el-checkbox__inner, i[class^='el-icon'] {
-    transform: scale(1.5);
-  }
-}
-
-.pan-head {
-  padding: 12px;
-
-  .el-button {
-    right: 10px;
-    line-height: 14px;
-    padding: 5px;
-    position: absolute;
-
-    &>* {
-      margin: 0 !important;
-      display: inline-block;
-    }
-  }
-
-  .el-dropdown {
-    display: block;
-
-    i {
-      margin: 0 !important;
-    }
-  }
-}
-
-.pan-head svg {
-  top: 7px;
-  right: 7px;
-  cursor: pointer;
-  position: absolute;
-  transform: scale(0.5);
-}
-
-.CodeMirror-wrap {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
-.CodeMirror-gutters {
-  border: 0 !important;
-  background: inherit !important;
-}
-
-.CodeMirror-lines {
-  padding: 0 !important;
-}
-
-.console-pan .pan-head button {
-  vertical-align: top;
-  margin-top: -2px;
-  float: right;
-}
-
-.compiled-code-dialog {
-  width: calc(100% - 20px) !important;
-  max-width: 800px !important;
-}
-
-.page {
-  display: flex;
-  flex-direction: column;
-}
-
-span:empty {
-  display: none;
-}
-
-.el-dropdown .el-icon--right {
-  position: absolute;
-  top: 0;
-}
-
-.el-message-box {
-  width: calc(100% - 20px) !important;
-  max-width: 420px;
-}
-
-#output-iframe {
-  display: flex;
-  flex: 1;
-  justify-content: stretch;
-
-  iframe {
-    border: 0 !important;
-    height: 100%;
-    position: absolute;
-  }
-}
-
-.pan-head {
-  position: relative;
-}
-
-.pans.headless .pan-head {
-  display: none;
-}
-
-.pans[class*=column] {
-  .pan {
-    width: 100% !important;
-
-    &:not(:first-child) {
-      border-top: 1px dashed lightblue;
-    }
-  }
-}
-
-.pan {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  position: static;
-  resize: both;
-  background-color: #f9f9f9;
-
-  &:last-child {
-    flex-grow: 1;
-  }
-
-  &.active-pan {
-    background-color: white;
-  }
-}
-
-.pans:not(.headless) {
-  height: calc(100% - 64px);
-}
-
-.pans.headless {
-  height: 100%;
-}
-
-.pans[class*=row] {
-  .pan {
-    height: 100% !important;
-
-    &:not(:first-child) {
-      border-left: 1px dashed lightblue;
-    }
-  }
-}
-
-header > * {
-  height: 100%;
-}
-
 @media (orientation: landscape) {
   header {
-    overflow-y: auto;
-    flex: 0 0 auto;
-    border-bottom: 0 !important;
-    border-right: 1px solid silver;
-    flex-direction: column !important;
-
-    .el-button, .el-checkbox {
-      padding: 10px;
-      flex-direction: column !important;
-
-      i, .el-checkbox__inner {
-        margin: 0 0 10px 0 !important;
-      }
-    }
+    padding: 0.3rem 0;
+    width: 3rem;
+    min-height: 100vh;
+    flex-direction: column;
+    border-right: 1px dashed #048;
   }
 
-  header > * {
-    height: auto !important;
+  .popper__arrow {
+    display: none !important;
   }
 
   .el-popper {
@@ -377,52 +355,34 @@ header > * {
     flex-direction: row;
   }
 
-  .el-button > *, .el-checkbox > span, i {
-    margin: 10px 0 !important;
-  }
-
-  .pans:not(.headless) {
-    height: 100%;
-    width: calc(100% - 64px);
-  }
-
   .pans.headless {
     height: 100%;
     width: 100%;
   }
 }
 
-@media (max-width: 800px), (max-height: 600px) {
-  #cf {
-    display: none;
+@media (max-width: 480px), (max-height: 480px) {
+  .tippy-popper {
+    display: none !important;
   }
 
-  .pan-head {
-    padding: 6px;
+  .el-dropdown-menu {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%);
+    max-width: 75vw;
+    max-height: 75vh;
+    overflow: auto;
+    transform-origin: center !important;
+    margin: 0 !important;
+    justify-content: space-evenly;
   }
 
-  .compiled-code-dialog {
-    max-height: calc(100% - 20px);
-    top: 10px !important;
-  }
-
-  header {
-    min-width: 64px;
-
-    .el-button, .el-checkbox {
-      i, .el-checkbox__inner {
-        margin: 0 !important;
-      }
-
-      span:not(.el-checkbox__input):not(.el-checkbox__inner) {
-        display: none !important;
-      }
-    }
-  }
-
-  *:not(input):not(textarea) {
-    -webkit-user-select: none; /* disable selection/Copy of UIWebView */
-    -webkit-touch-callout: none; /* disable the IOS popup when long-press on a link */
+  .popper__arrow {
+    display: none !important;
   }
 }
 </style>

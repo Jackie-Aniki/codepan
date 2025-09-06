@@ -21,15 +21,8 @@ import req from 'reqjs'
 
 Vue.use(Vuex)
 
-const pans = ['html', 'css', 'js', 'console', 'output']
-const sortPans = (ps) => {
-  return ps.sort((a, b) => {
-    return pans.indexOf(a) > pans.indexOf(b)
-  })
-}
-
 const emptyPans = () => ({
-  js: {
+  code: {
     code: '',
     transformer: 'js'
   },
@@ -45,7 +38,7 @@ const emptyPans = () => ({
 
 const getFileNameByLang = {
   html: 'index.html',
-  js: 'script.js',
+  code: 'script.js',
   css: 'style.css'
 }
 
@@ -53,7 +46,7 @@ const getFileNameByLang = {
 export const boilerplates = {
   empty: async () => ({
     ...emptyPans(),
-    showPans: ['js', 'output']
+    showPans: ['code', 'output']
   })
 }
 
@@ -69,7 +62,7 @@ importAll(require.context('@/boilerplates', true, /index.js$/))
 const urlParams = () =>
   Object.assign(
     {
-      pans: 'js,output',
+      pans: 'code,output',
       layout: 'column',
       headless: 'false'
     },
@@ -122,7 +115,7 @@ const store = new Vuex.Store({
         pans.splice(idx, 1)
       }
 
-      state.visiblePans = sortPans(pans)
+      state.visiblePans = pans.sort()
 
       history.replaceState(
         null,
@@ -131,7 +124,7 @@ const store = new Vuex.Store({
       )
     },
     SHOW_PANS(state, pans) {
-      state.visiblePans = sortPans(pans)
+      state.visiblePans = pans.sort()
     },
     ACTIVE_PAN(state, pan) {
       state.activePan = pan
@@ -225,7 +218,7 @@ const store = new Vuex.Store({
 
       progress.start()
 
-      const pans = `?pans=${boilerplate.showPans.join(',')}`
+      const pans = `?pans=${boilerplate.showPans.sort().join(',')}`
       const hash = `#/boilerplate/${boilerplateOrName}${pans}`
       if (location.hash !== hash) {
         location.hash = hash
@@ -233,7 +226,7 @@ const store = new Vuex.Store({
 
       const ps = []
 
-      for (const type of ['html', 'js', 'css']) {
+      for (const type of ['html', 'code', 'css']) {
         const base = state[type]
         const { code, transformer } = {
           code: '',
@@ -249,7 +242,7 @@ const store = new Vuex.Store({
         )
       }
 
-      const { activePan = boilerplate.showPans[0] || 'js' } = boilerplate
+      const { activePan = boilerplate.showPans[0] || 'code' } = boilerplate
       ps.push(dispatch('setActivePan', activePan))
       ps.push(dispatch('clearLogs'))
 
@@ -277,14 +270,14 @@ const store = new Vuex.Store({
       const main = {
         html: {},
         css: {},
-        js: {},
+        code: {},
         ...(files['index.js'] ? req(files['index.js'].content) : {}),
         ...(files['codepan.js'] ? req(files['codepan.js'].content) : {}),
         ...(files['codepan.json']
           ? JSON.parse(files['codepan.json'].content)
           : {})
       }
-      for (const type of ['html', 'js', 'css']) {
+      for (const type of ['html', 'code', 'css']) {
         if (!main[type].code) {
           const filename = main[type].filename || getFileNameByLang[type]
           if (files[filename]) {

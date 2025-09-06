@@ -23,7 +23,7 @@ export default (pans, pan) => {
     }
   }
 
-  if (pan === 'js') {
+  if (pan === 'code') {
     const leftCount = pansCount(['html', 'css'])
     return {
       left: suffix(leftCount),
@@ -32,7 +32,7 @@ export default (pans, pan) => {
   }
 
   if (pan === 'console') {
-    const leftCount = pansCount(['html', 'css', 'js'])
+    const leftCount = pansCount(['html', 'css', 'code'])
     return {
       left: suffix(leftCount),
       right: suffix(rightOffset(leftCount))
@@ -40,7 +40,7 @@ export default (pans, pan) => {
   }
 
   if (pan === 'output') {
-    const leftCount = pansCount(['html', 'css', 'js', 'console'])
+    const leftCount = pansCount(['html', 'css', 'code', 'console'])
     return {
       left: suffix(leftCount),
       right: 0

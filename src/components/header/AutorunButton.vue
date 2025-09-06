@@ -1,5 +1,12 @@
 <template>
-  <el-checkbox v-if="!inIframe" border :value="autoRun" @change="setAutoRun">
+  <el-checkbox
+    v-if="!inIframe"
+    border
+    :value="autoRun"
+    v-tippy="{ arrow: true }"
+    title="Toggle auto run"
+    @change="setAutoRun"
+  >
     Auto-run
   </el-checkbox>
 </template>

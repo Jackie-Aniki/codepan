@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[24],{825:function(s,t,p){"use strict";p.r(t),t.default='<script src="https://unpkg.com/preact@10/dist/preact.umd.js"><\/script>\n<script src="https://unpkg.com/preact@10/hooks/dist/hooks.umd.js"><\/script>\n'}}]);

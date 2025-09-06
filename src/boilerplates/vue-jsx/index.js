@@ -9,7 +9,7 @@ export default async () => {
   ])
 
   return {
-    js: {
+    code: {
       code: jsCode,
       transformer: 'vue-jsx'
     },
@@ -21,6 +21,6 @@ export default async () => {
       code: cssCode,
       transformer: 'css'
     },
-    showPans: ['js', 'output']
+    showPans: ['code', 'output']
   }
 }

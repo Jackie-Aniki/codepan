@@ -1,6 +1,6 @@
 export default () => {
   return {
-    js: {
+    code: {
       code: localStorage.getItem('codepan.js') || '',
       transformer: 'babel'
     },
@@ -12,6 +12,6 @@ export default () => {
       code: localStorage.getItem('codepan.css') || '',
       transformer: 'css'
     },
-    showPans: ['js', 'output']
+    showPans: ['code', 'output']
   }
 }

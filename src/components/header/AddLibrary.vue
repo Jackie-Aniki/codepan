@@ -1,8 +1,10 @@
 <template>
   <el-button
     v-if="!inIframe"
+    v-tippy="{ arrow: true }"
     class="home-header-left-item"
-    icon="el-icon-notebook-2"
+    icon="el-icon-document-add"
+    title="Import library"
     @click="promptLibrary"
   >
     Add library
