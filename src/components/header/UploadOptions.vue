@@ -1,7 +1,7 @@
 <template>
   <el-dropdown
     v-if="!inIframe"
-    class="home-header-right-item home-header-more"
+    class="home-header-more"
     trigger="click"
     @command="handleDropdownCommand"
   >

@@ -1,9 +1,5 @@
 <template>
-  <el-dropdown
-    trigger="click"
-    class="home-header-left-item"
-    @command="togglePan"
-  >
+  <el-dropdown trigger="click" @command="togglePan">
     <el-button
       v-tippy="{ arrow: true }"
       title="Toggle pans"
@@ -72,8 +68,8 @@ export default {
     content: '+';
     display: inline-block;
     margin-right: 10px;
-    width: 19px;
-    height: 19px;
+    width: 18px;
+    height: 18px;
     line-height: 19.5px;
     font-size: 14px;
     font-weight: bold;

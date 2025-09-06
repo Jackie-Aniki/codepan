@@ -1,11 +1,10 @@
 <template>
-  <header class="home-header">
-    <run-button />
+  <header>
     <autorun-button />
-    <pan-toggles />
+    <run-button />
     <add-boilerplate />
     <add-library />
-    <save-gist />
+    <pan-toggles />
   </header>
 </template>
 
@@ -15,7 +14,6 @@ import AddLibrary from '@/components/header/AddLibrary.vue'
 import AddBoilerplate from '@/components/header/AddBoilerplate.vue'
 import RunButton from '@/components/header/RunButton.vue'
 import AutorunButton from '@/components/header/AutorunButton.vue'
-import SaveGist from '@/components/header/SaveGist.vue'
 
 export default {
   components: {
@@ -23,8 +21,7 @@ export default {
     AddBoilerplate,
     PanToggles,
     RunButton,
-    AutorunButton,
-    SaveGist
+    AutorunButton
   }
 }
 </script>

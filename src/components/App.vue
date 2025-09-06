@@ -32,6 +32,7 @@ body {
 }
 
 * {
+  -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
 }
 
@@ -61,17 +62,20 @@ aside:empty {
 header {
   width: 100vw;
   min-height: 3rem;
-  padding: 0 0.3rem;
+  max-height: 3rem;
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
 
   * {
+    vertical-align: middle !important;
     padding: 0 !important;
   }
 
   > * {
-    flex-grow: 1;
-    flex-basis: auto;
+    width: 100%;
+    height: 100% !important;
 
     > .el-button {
       width: 100%;
@@ -79,58 +83,84 @@ header {
     }
   }
 
-  > .el-checkbox {
-    height: auto !important;
+  .is-disabled {
+    opacity: 0.5;
   }
 
   .el-button,
   .el-checkbox {
-    color: #28f !important;
+    color: #08f !important;
     background-color: transparent !important;
     border: 0 !important;
     border-radius: 0 !important;
-    display: flex !important;
     margin: 0 !important;
-    justify-content: center;
+    display: flex;
     align-items: center;
+    justify-content: center;
 
     span:not(i):not(.el-checkbox__input) {
       display: none;
     }
   }
 
-  i {
-    transform: scale(1.6);
+  .el-checkbox,
+  .el-checkbox__inner {
+    border-color: #08f !important;
+    border-width: 1.5px;
   }
 
-  .el-checkbox__input {
-    transform: scale(1.4);
-    margin-top: -4px !important;
+  .el-checkbox {
+    .el-checkbox__inner {
+      transition: all 0.3s ease-out;
+      zoom: 1.6;
+      background: #08f !important;
+      display: inline-block !important;
+    }
+
+    .el-checkbox__inner::after {
+      border-width: 1.5px;
+      top: 40%;
+      left: 50%;
+      border-color: #888 !important;
+      transform: translate(-50%, -50%) rotate(45deg) !important;
+    }
+
+    .el-checkbox__input:not(.is-checked) {
+      .el-checkbox__inner {
+        background: transparent !important;
+      }
+
+      .el-checkbox__inner::after {
+        border-color: transparent !important;
+      }
+    }
+  }
+
+  i {
+    zoom: 2;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  header {
+    .el-checkbox {
+      .el-checkbox__inner::after {
+        border-color: gray;
+      }
+    }
   }
 }
 
 .el-checkbox__input.is-checked,
 .el-checkbox__input.is-indeterminate {
   .el-checkbox__inner {
-    background-color: #28f;
-    border-color: #28f;
+    background-color: #08f;
+    border-color: #08f;
   }
 }
 
 pre {
   word-break: break-all;
-}
-
-.el-checkbox {
-  .el-checkbox__input {
-    padding: 0;
-    height: 14px !important;
-    width: 14px !important;
-  }
-
-  .el-checkbox__inner {
-    display: inline-block !important;
-  }
 }
 
 .el-badge__content.is-fixed {
@@ -189,8 +219,13 @@ span:empty {
 }
 
 .el-message-box {
-  width: calc(100% - 20px) !important;
-  max-width: 420px;
+  position: fixed;
+  transform-origin: center;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  width: 85%;
+  max-width: 400px;
 }
 
 #output-iframe {
@@ -281,10 +316,6 @@ span:empty {
   }
 }
 
-label.el-checkbox {
-  padding: 0 !important;
-}
-
 .pan-head-right > svg {
   display: none;
 }
@@ -300,6 +331,21 @@ label.el-checkbox {
 }
 
 .el-dropdown-menu {
+  padding: 0;
+  margin: 0;
+  max-height: 75vh !important;
+  overflow: auto;
+
+  li {
+    border-radius: 2px;
+    flex-grow: 1;
+    padding: 0.125rem 1rem;
+  }
+
+  .popper__arrow {
+    display: none;
+  }
+
   .fake-anchor {
     color: #333;
     text-decoration: none;
@@ -321,7 +367,12 @@ label.el-checkbox {
 }
 
 .notie-container {
+  font-size: 1.5em;
   z-index: 9999;
+}
+
+.notie-textbox {
+  padding: 0.5rem 1rem;
 }
 
 #HW_frame_cont.HW_visible {
@@ -336,9 +387,10 @@ label.el-checkbox {
 
 @media (orientation: landscape) {
   header {
-    padding: 0.3rem 0;
-    width: 3rem;
+    min-width: 3rem;
+    max-width: 3rem;
     min-height: 100vh;
+    max-height: 100vh;
     flex-direction: column;
     border-right: 1px dashed #048;
   }
@@ -349,10 +401,6 @@ label.el-checkbox {
 
   .el-popper {
     max-height: 100%;
-  }
-
-  .el-dropdown-menu.el-popper {
-    overflow-y: auto;
   }
 
   .page {
@@ -377,9 +425,6 @@ label.el-checkbox {
     left: 50% !important;
     top: 50% !important;
     transform: translate(-50%, -50%);
-    max-width: 75vw;
-    max-height: 75vh;
-    overflow: auto;
     transform-origin: center !important;
     margin: 0 !important;
     justify-content: space-evenly;

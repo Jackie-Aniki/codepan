@@ -1,12 +1,8 @@
 <template>
-  <el-dropdown
-    trigger="click"
-    class="home-header-left-item"
-    @command="setBoilerplate"
-  >
+  <el-dropdown trigger="click" @command="setBoilerplate">
     <el-button
       v-tippy="{ arrow: true }"
-      title="Boilerplate"
+      title="Select boilerplate"
       icon="el-icon-trophy"
     >
       Boilerplates

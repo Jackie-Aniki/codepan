@@ -1,11 +1,11 @@
 <template>
   <el-button
     v-tippy="{ arrow: true }"
+    :disabled="autoRun"
     :icon="iframeStatusIcon"
     :type="iframeStatus === 'error' ? 'danger' : 'primary'"
-    class="home-header-right-item"
     plain
-    title="Run"
+    title="Run once"
     @click="runCode"
   >
     Run
@@ -34,7 +34,7 @@ export default {
         case 'error':
           return 'el-icon-warning'
         default:
-          return 'el-icon-video-play'
+          return 'el-icon-refresh'
       }
     }
   },

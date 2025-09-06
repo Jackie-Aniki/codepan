@@ -6,7 +6,6 @@
     plain
     :disabled="editorStatus === 'saving'"
     :title="saveButtonTitle"
-    class="home-header-right-item"
     @click="saveGist"
   >
     Save
