@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[18],{196:function(n,s,t){"use strict";t.r(s),s.default="<script type=\"module\">\n  import { System } from 'https://cdn.skypack.dev/check2d'\n\n  const system = new System()\n  const { bbox } = system.createBox({ x: 0, y: 0 }, 120, 60)\n\n  console.log(bbox)\n<\/script>\n"}}]);

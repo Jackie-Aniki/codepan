@@ -125,7 +125,7 @@ async function loadSass() {
   if (!transformers.get('sass')) {
     progress.start()
     const [Sass] = await Promise.all([
-      import('../../static/vendor/sass/sass'),
+      import('../../public/vendor/sass/sass'),
       import(
         /* webpackChunkName: "codemirror-mode" */ 'codemirror/mode/sass/sass.js'
       )

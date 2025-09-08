@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[33],{835:function(n,c,t){"use strict";t.r(c),c.default="const { createApp, h, ref } = Vue\n\nconst app = createApp({\n  setup() {\n    const count = ref(0)\n    const inc = () => count.value++\n    const dec = () => count.value--\n    return {\n      count,\n      inc,\n      dec\n    }\n  }\n})\n\napp.mount('#app')\n"}}]);

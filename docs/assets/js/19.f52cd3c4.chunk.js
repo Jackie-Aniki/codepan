@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[19],{819:function(n,o,s){"use strict";s.r(o),o.default="import '@babel/standalone'\n\nconst { code } = Babel.transform(\n  `\n  class Point {\n    constructor(x, y) {\n      this.x = x;\n      this.y = y;\n    }\n  }\n`,\n  {}\n)\n\nconsole.log(code)\n"}}]);

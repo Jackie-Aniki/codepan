@@ -36,33 +36,7 @@ module.exports = {
   },
   plugins: [
     { resolve: 'poi-preset-bundle-report' },
-    { resolve: 'poi-preset-babel-minify', options: { removeUndefined: false } },
-    {
-      resolve: 'poi-preset-offline',
-      options: {
-        version: '[hash]',
-        autoUpdate: true,
-        safeToUseOptionalCaches: true,
-        caches: {
-          main: ['index.html', 'client.*', 'vendor.*', 'editor-page.chunk.js'],
-          additional: ['*.chunk.js', ':externals:'],
-          optional: [':rest:']
-        },
-        ServiceWorker: {
-          events: true,
-          navigateFallbackURL: '/'
-        },
-        AppCache: {
-          events: true,
-          FALLBACK: { '/': '/' }
-        },
-        externals: [].concat(
-          Object.keys(cdns).reduce((res, name) => {
-            return res.concat(cdns[name])
-          }, [])
-        )
-      }
-    }
+    { resolve: 'poi-preset-babel-minify', options: { removeUndefined: false } }
   ],
   envs: Object.assign(
     {

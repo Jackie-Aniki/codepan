@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[22],{822:function(s,i,n){"use strict";n.r(i),i.default='<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.0.4/pixi.js"><\/script>\n<script src="https://unpkg.com/pixi-tiled-utils@1.1.2/index.js"><\/script>\n\n<style>\n  canvas {\n    max-width: 100%;\n    max-height: 100%;\n  }\n</style>\n'}}]);

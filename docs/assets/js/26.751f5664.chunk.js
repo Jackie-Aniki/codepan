@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[26],{826:function(t,p,c){"use strict";c.r(p),p.default='<script src="https://unpkg.com/react@16/umd/react.development.js"><\/script>\n<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"><\/script>\n\n<div id="app"></div>\n'}}]);
