@@ -267,6 +267,10 @@ span:empty {
   }
 }
 
+[class*='CodeMirror'] {
+  height: auto !important;
+}
+
 .CodeMirror-sizer {
   margin-left: 0 !important;
 }
@@ -278,11 +282,6 @@ span:empty {
 .CodeMirror-gutter-wrapper,
 .CodeMirror-gutters {
   display: none;
-}
-
-.CodeMirror-scroll,
-.CodeMirror-wrap {
-  height: 100% !important;
 }
 
 .pans.headless {
