@@ -8,10 +8,7 @@ export default {
 }
 </script>
 
-<style src="nprogress/nprogress.css"></style>
-<style src="vue-slim-modal/themes/default.css"></style>
-<style src="v-tippy/dist/tippy.css"></style>
-<style src="notie/dist/notie.min.css"></style>
+<link rel="manifest" href="/manifest.json" />
 
 <style>
 html,

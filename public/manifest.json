@@ -1,7 +1,7 @@
 {
   "name": "CodePan",
   "short_name": "CodePan",
-  "start_url": "https://onizuka-aniki.github.io/codepan/",
+  "start_url": "/codepan/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#fff",

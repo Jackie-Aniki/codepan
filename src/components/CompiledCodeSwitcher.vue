@@ -1,10 +1,6 @@
 <template>
-  <div
-    v-tippy="{ title: 'View compiled' }"
-    class="svg-icon"
-    @click="handleClick"
-  >
-    &#x27F3;
+  <div v-tippy="{ title: 'View compiled' }" @click="handleClick">
+    <strong> &#x27F3; </strong>
   </div>
 </template>
 

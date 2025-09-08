@@ -7,7 +7,7 @@ self.addEventListener('install', (event) => {
   self.skipWaiting()
   event.waitUntil(
     caches.open(cacheName).then(
-      (cache) => cache.addAll(['/']) // Homepage pre-cache
+      (cache) => cache.addAll(['/codepan/']) // Homepage pre-cache
     )
   )
 })
@@ -40,11 +40,12 @@ self.addEventListener('fetch', (event) => {
     return
   }
 
-  const mode = url.startsWith(self.location.origin) ? 'same-origin' : 'no-cors'
+  const mode = url.startsWith(self.location.origin) ? 'same-origin' : 'cors'
+  const credentials = mode === 'cors' ? 'omit' : 'same-origin'
 
   event.respondWith(
     new Promise((resolve) => {
-      fetch(url, { mode })
+      fetch(url, { mode, credentials })
         .then((freshResponse) => {
           if (freshResponse.status === 200) {
             // If response is OK, save it to cache and return it

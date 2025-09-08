@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[32],{212:function(n,t,c){"use strict";c.r(t),t.default='<script src="https://unpkg.com/vue@3"><\/script>\n\n<div id="app">\n  <h2>{{ count }}</h2>\n  <button @click="inc">Increment</button>\n  {{ \' \' }}\n  <button @click="dec">Decrement</button>\n</div>\n'}}]);

@@ -4,7 +4,7 @@
     :is-open="!!show"
     :click-outside="() => $emit('update:show', false)"
   >
-    <h2 class="modal-title">&#x27F3; Compiled with {{ transformerName }}</h2>
+    <h2 class="modal-title">Compiled with {{ transformerName }}</h2>
     <pre
       class="CodeMirror cm-s-default CodeMirror-wrap"
       v-html="transforming ? 'Compiling...' : transformedCode"
