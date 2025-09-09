@@ -7,7 +7,7 @@ self.addEventListener('install', (event) => {
   self.skipWaiting()
   event.waitUntil(
     caches.open(cacheName).then(
-      (cache) => cache.addAll(['/codepan/']) // Homepage pre-cache
+      (cache) => cache.addAll(['']) // Homepage pre-cache
     )
   )
 })

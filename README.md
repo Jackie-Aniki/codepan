@@ -14,7 +14,7 @@ https://onizuka-aniki.github.io/codepan/
 
 Yep! So why not one more? And this one could work **offline** for you!
 
-How? `codepan` is just a single page app with **no-backend**! Built with Webpack and Vue.js, and the offline feature is provided by [offline-worker](https://www.npmjs.com/package/offline-worker/v/2.0.0)
+How? `codepan` is just a single page app with **no-backend**! Built with Webpack and Vue.js, and the offline feature is provided by my [pwa-worker](https://www.npmjs.com/package/pwa-worker)
 
 ## Browser Support
 

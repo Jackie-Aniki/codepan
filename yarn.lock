@@ -6691,11 +6691,6 @@ obuf@^1.0.0, obuf@^1.1.2:
   resolved "https://registry.yarnpkg.com/obuf/-/obuf-1.1.2.tgz#09bea3343d41859ebd446292d11c9d4db619084e"
   integrity sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==
 
-offline-worker@~2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/offline-worker/-/offline-worker-2.0.0.tgz#bbe865e18f29d34c29ae8b8a62eb2813b61fb90c"
-  integrity sha512-5cV1x4jWYj7cnBkm5irNznI7Eb9oMkzc9GdtgzZcFSfxk/cRnfsISArdamqCm+o18B0W1Zid75LM1cyI/0dPxg==
-
 on-finished@2.4.1:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/on-finished/-/on-finished-2.4.1.tgz#58c8c44116e54845ad57f14ab10b03533184ac3f"
@@ -7713,6 +7708,11 @@ punycode@^2.1.0:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.3.1.tgz#027422e2faec0b25e1549c3e1bd8309b9133b6e5"
   integrity sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==
+
+pwa-worker@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/pwa-worker/-/pwa-worker-2.1.0.tgz#3985f4a3cbd0613bb9e7fb056d8201382c6ef623"
+  integrity sha512-4sOaaFiJ5wEHoT5T11Yv7xKtKTnDMAZ0hG+FNySYMuo8gWrEmelVagOw/ZGscliQqaEBFgcVRUf8A3e9jcJY1A==
 
 q@^1.1.2:
   version "1.5.1"
