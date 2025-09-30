@@ -250,7 +250,7 @@ export default {
               method: 'PATCH',
               params,
               data: {
-                description: `Try it online! https://onizuka-aniki.github.io/codepan/gist/${data.id}`
+                description: `Try it online! https://jackie-aniki.github.io/codepan/gist/${data.id}`
               }
             }).catch((err) => console.log(err))
           }
