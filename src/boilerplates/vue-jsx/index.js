@@ -1,29 +1,26 @@
 export default async () => {
   const [htmlCode, jsCode, cssCode] = await Promise.all([
     import(
-      /* webpackChunkName: "boilerplate-vue-jsx" */ "!raw-loader!./codepan.html"
+      /* webpackChunkName: "boilerplate-vue-jsx" */ '!raw-loader!./codepan.html'
     ),
     import(
-      /* webpackChunkName: "boilerplate-vue-jsx" */ "!raw-loader!./codepan.js"
-    ),
-    import(
-      /* webpackChunkName: "boilerplate-vue-jsx" */ "!raw-loader!./codepan.css"
-    ),
-  ]);
+      /* webpackChunkName: "boilerplate-vue-jsx" */ '!raw-loader!./codepan.js'
+    )
+  ])
 
   return {
-    js: {
+    code: {
       code: jsCode,
-      transformer: "vue-jsx",
+      transformer: 'vue-jsx'
     },
     html: {
       code: htmlCode,
-      transformer: "html",
+      transformer: 'html'
     },
     css: {
       code: cssCode,
-      transformer: "css",
+      transformer: 'css'
     },
-    showPans: ["js", "output"],
-  };
-};
+    showPans: ['code', 'output']
+  }
+}

@@ -1,25 +1,25 @@
 <template>
-  <el-dropdown
-    trigger="click"
-    class="home-header-left-item"
-    @command="setBoilerplate"
-  >
-    <el-button icon="el-icon-star-on"> Boilerplates </el-button>
+  <el-dropdown trigger="click" @command="setBoilerplate">
+    <el-button
+      v-tippy="{ arrow: true }"
+      title="Select boilerplate"
+      icon="el-icon-trophy"
+    >
+      Boilerplates
+    </el-button>
     <el-dropdown-menu slot="dropdown">
       <el-dropdown-item command="empty"> Empty </el-dropdown-item>
-      <el-dropdown-item command="vue"> Vue@2 </el-dropdown-item>
-      <el-dropdown-item command="vue-jsx"> Vue@2 JSX </el-dropdown-item>
       <el-dropdown-item command="react"> React </el-dropdown-item>
       <el-dropdown-item command="preact"> Preact </el-dropdown-item>
-      <el-dropdown-item command="rxjs"> RxJS </el-dropdown-item>
+      <el-dropdown-item command="vue-jsx"> Vue@2 JSX </el-dropdown-item>
+      <el-dropdown-item command="vue"> Vue@3 </el-dropdown-item>
       <el-dropdown-item command="svelte"> Svelte@1 </el-dropdown-item>
       <el-dropdown-item command="hyperapp"> Hyperapp </el-dropdown-item>
       <el-dropdown-item command="es-import"> ES import </el-dropdown-item>
+      <el-dropdown-item command="rxjs"> RxJS </el-dropdown-item>
       <el-dropdown-item command="rust"> Rust </el-dropdown-item>
       <el-dropdown-item command="pixi"> Pixi </el-dropdown-item>
-      <el-dropdown-item command="detect-collisions">
-        Detect Collisions
-      </el-dropdown-item>
+      <el-dropdown-item command="check2d"> Check2d </el-dropdown-item>
       <el-dropdown-item command="local-storage">
         Local Storage
       </el-dropdown-item>
@@ -28,24 +28,24 @@
 </template>
 
 <script>
-import { Button, Dropdown, DropdownMenu, DropdownItem } from "element-ui";
+import { Button, Dropdown, DropdownMenu, DropdownItem } from 'element-ui'
 
 export default {
   components: {
-    "el-button": Button,
-    "el-dropdown": Dropdown,
-    "el-dropdown-menu": DropdownMenu,
-    "el-dropdown-item": DropdownItem,
+    'el-button': Button,
+    'el-dropdown': Dropdown,
+    'el-dropdown-menu': DropdownMenu,
+    'el-dropdown-item': DropdownItem
   },
   methods: {
     async setBoilerplate(boilerplate) {
       this.$router.push({
-        name: "boilerplate",
+        name: 'boilerplate',
         params: {
-          boilerplate,
-        },
-      });
-    },
-  },
-};
+          boilerplate
+        }
+      })
+    }
+  }
+}
 </script>

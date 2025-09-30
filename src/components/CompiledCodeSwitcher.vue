@@ -1,29 +1,23 @@
 <template>
-  <repeat-icon
-    v-tippy="{ title: 'View compiled' }"
-    class="svg-icon"
-    @click="handleClick"
-  />
+  <div v-tippy="{ title: 'View compiled' }" @click="handleClick">
+    <strong> &#x27F3; </strong>
+  </div>
 </template>
 
 <script>
-import Event from "@/utils/event";
-import { RepeatIcon } from "vue-feather-icons";
+import Event from '@/utils/event'
 
 export default {
-  components: {
-    RepeatIcon,
-  },
   props: {
     type: {
       required: true,
-      type: String,
-    },
+      type: String
+    }
   },
   methods: {
     handleClick() {
-      Event.$emit("show-compiled-code", this.type);
-    },
-  },
-};
+      Event.$emit('show-compiled-code', this.type)
+    }
+  }
+}
 </script>

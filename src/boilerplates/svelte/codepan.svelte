@@ -1,7 +1,7 @@
 <div id="app">
   <h2>{{ count }}</h2>
-  <button on:click="inc()">inc</button>
-  <button on:click="dec()">dec</button>
+  <button on:click="inc()">Increment</button>
+  <button on:click="dec()">Decrement</button>
 </div>
 
 <script>

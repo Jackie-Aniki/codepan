@@ -8,11 +8,11 @@
 </template>
 
 <script>
-import Event from "@/utils/event";
-import { mapState } from "vuex";
+import Event from '@/utils/event'
+import { mapState } from 'vuex'
 
 export default {
-  props: ["enable", "pan"],
+  props: ['enable', 'pan'],
   data() {
     return {
       resizing: false,
@@ -21,78 +21,78 @@ export default {
       originalCurrentPanRight: null,
       originalCurrentPanLeft: null,
       currentPan: null,
-      nextPan: null,
-    };
+      nextPan: null
+    }
   },
   computed: {
-    ...mapState(["visiblePans"]),
+    ...mapState(['visiblePans']),
     nextPanName() {
-      const currentIndex = this.visiblePans.indexOf(this.pan);
-      return this.visiblePans[currentIndex + 1];
-    },
+      const currentIndex = this.visiblePans.indexOf(this.pan)
+      return this.visiblePans[currentIndex + 1]
+    }
   },
   methods: {
     updateNextPan(style) {
-      Event.$emit(`set-${this.nextPanName}-pan-style`, style);
+      Event.$emit(`set-${this.nextPanName}-pan-style`, style)
     },
     updateCurrentPan(style) {
-      Event.$emit(`set-${this.pan}-pan-style`, style);
+      Event.$emit(`set-${this.pan}-pan-style`, style)
     },
     getNextVisiblePan(current) {
-      const next = current.nextElementSibling;
-      if (next && next.style.display === "none") {
-        return this.getNextVisiblePan(next);
+      const next = current.nextElementSibling
+      if (next && next.style.display === 'none') {
+        return this.getNextVisiblePan(next)
       }
-      return next;
+      return next
     },
     handleMouseDown() {
-      this.resizing = true;
-      this.currentPan = this.$refs.resizer.parentNode;
-      this.nextPan = this.getNextVisiblePan(this.currentPan);
-      this.originalNextPanLeft = parseFloat(this.nextPan.style.left);
-      this.originalNextPanRight = parseFloat(this.nextPan.style.right);
-      this.originalCurrentPanRight = parseFloat(this.currentPan.style.right);
-      this.originalCurrentPanLeft = parseFloat(this.currentPan.style.left);
+      this.resizing = true
+      this.currentPan = this.$refs.resizer.parentNode
+      this.nextPan = this.getNextVisiblePan(this.currentPan)
+      this.originalNextPanLeft = parseFloat(this.nextPan.style.left)
+      this.originalNextPanRight = parseFloat(this.nextPan.style.right)
+      this.originalCurrentPanRight = parseFloat(this.currentPan.style.right)
+      this.originalCurrentPanLeft = parseFloat(this.currentPan.style.left)
 
-      document.addEventListener("mousemove", this.handleMouseMove);
-      document.addEventListener("mouseup", this.handleMouseUp);
+      document.addEventListener('mousemove', this.handleMouseMove)
+      document.addEventListener('mouseup', this.handleMouseUp)
 
-      this.currentPan.parentNode.classList.add("resizing");
+      this.currentPan.parentNode.classList.add('resizing')
       document
-        .getElementById("output-iframe")
-        .classList.add("disable-mouse-events");
+        .getElementById('output-iframe')
+        .classList.add('disable-mouse-events')
     },
     handleMouseUp() {
-      this.resizing = false;
+      this.resizing = false
 
-      document.removeEventListener("mousemove", this.handleMouseMove);
-      document.removeEventListener("mouseup", this.handleMouseUp);
+      document.removeEventListener('mousemove', this.handleMouseMove)
+      document.removeEventListener('mouseup', this.handleMouseUp)
 
-      this.currentPan.parentNode.classList.remove("resizing");
+      this.currentPan.parentNode.classList.remove('resizing')
       document
-        .getElementById("output-iframe")
-        .classList.remove("disable-mouse-events");
+        .getElementById('output-iframe')
+        .classList.remove('disable-mouse-events')
 
-      Event.$emit("refresh-editor", { run: false });
+      Event.$emit('refresh-editor', { run: false })
     },
     handleMouseMove(e) {
       if (this.resizing) {
-        e.preventDefault();
-        const newNextPanLeft = (e.clientX / window.innerWidth) * 100;
+        e.preventDefault()
+        const newNextPanLeft = (e.clientX / window.innerWidth) * 100
         if (
           newNextPanLeft - this.originalCurrentPanLeft > 5 &&
           100 - newNextPanLeft - this.originalNextPanRight > 5
         ) {
-          this.updateNextPan({ left: `${newNextPanLeft}%` });
+          this.updateNextPan({ left: `${newNextPanLeft}%` })
           const newCurrentPanRight =
             this.originalCurrentPanRight -
-            (newNextPanLeft - this.originalNextPanLeft);
-          this.updateCurrentPan({ right: `${newCurrentPanRight}%` });
+            (newNextPanLeft - this.originalNextPanLeft)
+          this.updateCurrentPan({ right: `${newCurrentPanRight}%` })
         }
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style lang="stylus" scoped>

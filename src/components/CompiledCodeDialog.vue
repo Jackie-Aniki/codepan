@@ -4,10 +4,7 @@
     :is-open="!!show"
     :click-outside="() => $emit('update:show', false)"
   >
-    <h2 class="modal-title">
-      <repeat-icon class="svg-icon" />
-      Compiled with {{ transformerName }}
-    </h2>
+    <h2 class="modal-title">Compiled with {{ transformerName }}</h2>
     <pre
       class="CodeMirror cm-s-default CodeMirror-wrap"
       v-html="transforming ? 'Compiling...' : transformedCode"
@@ -16,59 +13,57 @@
 </template>
 
 <script>
-import Modal from "vue-slim-modal";
-import { mapActions, mapState } from "vuex";
-import { RepeatIcon } from "vue-feather-icons";
-import { getHumanlizedTransformerName } from "@/utils";
-import * as transform from "@/utils/transform";
-import CodeMirror from "@/utils/highlight";
+import Modal from 'vue-slim-modal'
+import { mapActions, mapState } from 'vuex'
+import { getHumanlizedTransformerName } from '@/utils'
+import * as transform from '@/utils/transform'
+import CodeMirror from '@/utils/highlight'
 
 export default {
-  name: "CompiledCodeDialog",
-  props: ["show", "type", "code", "highlight"],
+  name: 'CompiledCodeDialog',
+  props: ['show', 'type', 'code', 'highlight'],
   data() {
     return {
-      transformedCode: "",
-    };
+      transformedCode: ''
+    }
   },
   watch: {
     async show(show) {
-      if (!show) return;
-      await this.transform(true);
+      if (!show) return
+      await this.transform(true)
       try {
-        const code = await transform[this.type](this.code);
+        const code = await transform[this.type](this.code)
         this.transformedCode = CodeMirror.highlight(code, {
           mode: this.highlight,
-          theme: "default",
-        });
+          theme: 'default'
+        })
       } catch ({ message, stack }) {
-        this.addLog({ type: "error", message: stack || message });
-        this.transformedCode = message;
+        this.addLog({ type: 'error', message: stack || message })
+        this.transformedCode = message
       }
-      await this.$nextTick();
-      await this.transform(false);
-    },
+      await this.$nextTick()
+      await this.transform(false)
+    }
   },
   computed: {
-    ...mapState(["transforming"]),
+    ...mapState(['transforming']),
     source() {
-      return this.$store.state[this.type];
+      return this.$store.state[this.type]
     },
     transformerName() {
-      return getHumanlizedTransformerName(this.source.transformer);
-    },
+      return getHumanlizedTransformerName(this.source.transformer)
+    }
   },
   methods: {
-    ...mapActions(["addLog", "transform"]),
+    ...mapActions(['addLog', 'transform'])
   },
   components: {
-    Modal,
-    RepeatIcon,
-  },
-};
+    Modal
+  }
+}
 </script>
 
-<style lang="stylus" scoped>
+<style scoped>
 .compiled-code-dialog {
   padding: 0;
   width: 50%;
@@ -85,7 +80,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 1px solid #e2e2e2;
 }
 
 .svg-icon {

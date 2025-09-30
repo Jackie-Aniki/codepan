@@ -1,4 +1,4 @@
-import "@babel/standalone";
+import '@babel/standalone'
 
 const { code } = Babel.transform(
   `
@@ -10,6 +10,6 @@ const { code } = Babel.transform(
   }
 `,
   {}
-);
+)
 
-console.log(code);
+console.log(code)

@@ -15,14 +15,14 @@ export default {
   props: {
     height: {
       type: Number,
-      default: 40,
+      default: 40
     },
     lineWidth: {
       type: Number,
-      default: 6,
-    },
-  },
-};
+      default: 6
+    }
+  }
+}
 </script>
 
 <style lang="stylus" scoped>

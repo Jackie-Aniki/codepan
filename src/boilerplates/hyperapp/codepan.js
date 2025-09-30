@@ -1,13 +1,13 @@
-/* @jsx h */
-import { h, app } from "hyperapp";
+const { h, app } = hyperapp
 
 app({
   init: 0,
   view: (state) =>
-    h("div", {}, [
-      h("h2", {}, state),
-      h("button", { onClick: (state) => state - 1 }, "Decrement"),
-      h("button", { onClick: (state) => state + 1 }, "Increment"),
+    h('div', {}, [
+      h('h2', {}, state),
+      h('button', { onClick: (state) => state + 1 }, 'Increment'),
+      ' ',
+      h('button', { onClick: (state) => state - 1 }, 'Decrement')
     ]),
-  node: document.body.appendChild(document.createElement("div")),
-});
+  node: document.body.appendChild(document.createElement('div'))
+})
