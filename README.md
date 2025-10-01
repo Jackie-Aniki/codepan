@@ -1,6 +1,6 @@
 # CodePan
 
-[<img src="https://img.shields.io/circleci/build/github/jackie-aniki/codepan/main?style=for-the-badge" alt="build status" />](https://app.circleci.com/pipelines/github/jackie-aniki/codepan)
+[<img src="https://img.shields.io/circleci/build/github/Jackie-Aniki/codepan/main?style=for-the-badge" alt="build status" />](https://app.circleci.com/pipelines/github/Jackie-Aniki/codepan)
 
 Play with JS/CSS/HTML so simple it hurts, the web playground that works offline.
 
